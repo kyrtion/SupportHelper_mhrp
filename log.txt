@@ -1,0 +1,63 @@
+[10:53:46.012929] (script)	chatlisting.lua: -10059521   |   Срок действия вашей страховки на здоровье закончился
+[10:53:46.014922] (script)	chatlisting.lua: -10059521   |   Вам необходимо подтвердить почтовый адрес. Это убережёт вас от взлома.
+[10:53:46.015920] (script)	chatlisting.lua: -1   |   Добро пожаловать, Помощник администрации {66ccff}Yasuo Kudo
+[10:53:46.016919] (script)	chatlisting.lua: -1   |   Ваш прошлый и текущий ip {66ccff}совпадают
+[10:53:46.019913] (script)	chatlisting.lua: 1724710911   |   {942fa8}[LAUNCHER ONLY]{66ccff} Сейчас действует бонусная программа: Отыграйте 5 часов с 09:00 до 00:00 и получите 5.000$!
+[10:53:46.049870] (script)	chatlisting.lua: -1   |   {C26EFF}Помощник Kirill Sever[23] ответил игроку Beall Wolff[45]: {FFFFFF}Для начала едьте на шахту, затем получите права, и работайте мусорово-
+[10:53:46.052866] (script)	chatlisting.lua: -1   |   зом.
+[10:53:54.008019] (script)	chatlisting.lua: -1   |   {C26EFF}Помощник Nathen Morenno[158] ответил игроку Logan Cameron[6]: {FFFFFF}Увы, 2х не всегда работает, прошу заранее уточнять, на сайте с до-
+[10:53:54.018002] (script)	chatlisting.lua: -1   |   натом все написано, при введении суммы показывает
+[10:53:55.499589] (script)	chatlisting.lua: -10059521   |   Вопросов на данный момент нет
+[10:53:55.502618] (script)	chatlisting.lua: -1616928769   |   Используйте: /ans [id игрока] [текст]
+[10:55:05.330131] (script)	chatlisting.lua: -1   |   Ваша мафия получила {008000}9.584${ffffff} за крышевание бизнесов
+[10:55:24.930523] (script)	chatlisting.lua: -1   |   {C26EFF}Авто-ответ на вопрос от игрока Richard Helms[35] - {FFFFFF}На сервере есть квесты? (Не считайте за дауна просто не заметил) - {C26EFF}п-
+[10:55:24.936514] (script)	chatlisting.lua: -1032912897   |   олучен
+[10:55:27.120551] (script)	chatlisting.lua: -10059521   |   Вопросов на данный момент нет
+[10:55:27.123549] (script)	chatlisting.lua: -1616928769   |   Используйте: /ans [id игрока] [текст]
+[10:55:35.500297] (script)	chatlisting.lua: -10059521   |   Вы не можете забирать со склада
+[10:55:38.576650] (script)	chatlisting.lua: -10059521   |   Вы не можете забирать со склада
+[10:55:46.973897] (script)	chatlisting.lua: 980   2   {6333FF}Члены организации   Ок   Отмена   {6333ff}1. {ffffff}Только {ccff66}online
+{6333ff}2. {ffffff}Только {ccff66}online{ffffff}+{ff6680}offline
+[10:55:51.141413] (script)	chatlisting.lua: 980   2   {6333FF}Члены организации   Ок   Отмена   {6333ff}1.{ffffff} Только {ccff66}online
+{6333ff}2.{ffffff} Только {ccff66}online{ffffff}+{ff6680}offline
+[10:56:08.516042] (script)	chatlisting.lua: -1   |   {8914DC}[Вопрос] Rihter LayIand[58]: {FFFFFF}Куда писать жб? Багом посадило в тюрьму или как вообще хз. Вроде не садили, а спавн в тюрьме 2 час-
+[10:56:08.519038] (script)	chatlisting.lua: -1   |   а сижу
+[10:56:10.077109] (script)	chatlisting.lua: 6921   1   {6333FF}Рассмотрение вопроса от 16.07.2022 10:53:11   Ответить   Игнор   {b2b2b2}Вопрос от Dorado_Clasico[160]: {ffffff}что где делать на работе в шахте ни ме
+ток ничего
+[10:56:56.905793] (script)	chatlisting.lua: -1   |   {C26EFF}Помощник Yasuo Kudo[2] ответил игроку Dorado Clasico[160]: {FFFFFF}Жалобы пишутся на форум проекта. Чтобы найти форум, оставьте в поиск-
+[10:56:56.907792] (script)	chatlisting.lua: -1   |   овой строке сообщение:"Форум MyHome"
+[10:57:48.628162] (script)	chatlisting.lua: -100684886   |   [H] Yasuo Kudo[2]: непонял
+[10:57:55.465385] (script)	chatlisting.lua: -100684886   |   [H] Yasuo Kudo[2]: я же отвечал 58му
+[10:58:00.838870] (script)	chatlisting.lua: -100684886   |   [H] Yasuo Kudo[2]: и в диалоге он был
+[10:58:15.137999] (script)	chatlisting.lua: -100684886   |   [H] Kirill Sever[23]: У меня тоже такой баг был
+[10:59:38.589535] (script)	chatlisting.lua: -1   |   {DC143C}Ваша жалоба: {FFFFFF}Помогите, во время полета двигатель решил заглохнут и я упал
+[11:00:04.554876] (script)	chatlisting.lua: -1   |   {FF7F50}Администратор Ethan Miln[103] для Yasuo Kudo[2]: {ffffff}Работаю по вашей жалобе.
+[11:00:11.726068] (script)	chatlisting.lua: -673720321   |   (( [В маске] Yasuo Kudo: тп на крышу ))
+[11:00:17.496511] (script)	chatlisting.lua: -1   |   {8914dc}[Вопрос] Vladislav Bradley[10]: {FFFFFF}Покупать оружие на черном рынке могут только офф. мафии?
+[11:00:21.731520] (script)	chatlisting.lua: 667156735   |   Все вопросы сейчас на рассмотрении помощниками администрации
+[11:00:52.700699] (script)	chatlisting.lua: -100684886   |   [H] Yasuo Kudo[2]: Впервые вопрос из моей сферы
+[11:00:55.933190] (script)	chatlisting.lua: -1   |   {c26eff}Помощник Dmitry Dusk[113] ответил игроку Rihter LayIand[58]: {ffffff}Напишите жалобу на форум проекта => forum.mh-rp.ru
+[11:00:59.314618] (script)	chatlisting.lua: -1   |   {8914dc}[Вопрос] Acadlbek Toibacniev[69]: {FFFFFF}какой команда продажи дома человеку
+[11:01:01.551145] (script)	chatlisting.lua: 6921   1   {6333FF}Рассмотрение вопроса от 16.07.2022 11:00:21   Ответить   Игнор   {b2b2b2}Вопрос от Vladislav_Bradley[10]: {ffffff}Покупать оружие на черном рынке могу
+т только офф. мафии?
+[11:01:26.341193] (script)	chatlisting.lua: -1   |   {c26eff}Помощник Yasuo Kudo[2] ответил игроку Vladislav Bradley[10]: {ffffff}Да, именно так.
+[11:02:06.870215] (script)	chatlisting.lua: -1   |   {c26eff}Помощник Dmitry Dusk[113] ответил игроку Acadlbek Toibacniev[69]: {ffffff}Последний пункт, введя команду /house.
+[11:02:09.842239] (script)	chatlisting.lua: -10059521   |   Вопросов на данный момент нет
+[11:02:09.844236] (script)	chatlisting.lua: -1616928769   |   Используйте: /ans [id игрока] [текст]
+[11:02:15.690027] (script)	chatlisting.lua: -100684886   |   [H] Dmitry Dusk[113]: долго думаете
+[11:02:26.800661] (script)	chatlisting.lua: -100684886   |   [H] Dmitry Dusk[113]: я молния маккевин
+[11:02:44.613929] (script)	chatlisting.lua: -100684886   |   [H] Yasuo Kudo[2]: видимо кто то юзанул /ans id и скатились ответы, я хрен знает, это визуально или нет, но пишет что отвечаем 
+[11:02:44.618920] (script)	chatlisting.lua: -100684886   |   не тем игрокам
+[11:03:02.882455] (script)	chatlisting.lua: -100684886   |   [H] Dmitry Dusk[113]: Вот я взял /ans, писало, что ничего, нет
+[11:03:08.345334] (script)	chatlisting.lua: -100684886   |   [H] Dmitry Dusk[113]: повторно - есть
+[11:03:13.394282] (script)	chatlisting.lua: -10059521   |   Вопросов на данный момент нет
+[11:03:13.401270] (script)	chatlisting.lua: -1616928769   |   Используйте: /ans [id игрока] [текст]
+[11:03:14.605088] (script)	chatlisting.lua: -10059521   |   Вопросов на данный момент нет
+[11:03:14.607085] (script)	chatlisting.lua: -1616928769   |   Используйте: /ans [id игрока] [текст]
+[11:03:23.039379] (script)	chatlisting.lua: -100684886   |   [H] Dmitry Dusk[113]: мы вообще не на те говорим
+[11:03:33.822096] (script)	chatlisting.lua: -1   |   {8914dc}[Вопрос] Collin Backer[111]: {FFFFFF}как включить двигатель на тплпфоне?
+[11:03:34.916941] (script)	chatlisting.lua: -1   |   {8914dc}[Вопрос] Michael Smit[161]: {FFFFFF}как превозит груз и какоц нужен лвл
+[11:03:36.670783] (script)	chatlisting.lua: 6921   1   {6333FF}Рассмотрение вопроса от 16.07.2022 11:03:38   Ответить   Игнор   {b2b2b2}Вопрос от Collin_Backer[111]: {ffffff}как включить двигатель на тплпфоне?
+[11:03:54.098338] (script)	chatlisting.lua: -1   |   {c26eff}Помощник Yasuo Kudo[2] ответил игроку Collin Backer[111]: {ffffff}/phone- MyCar.
+[11:04:12.430837] (script)	chatlisting.lua: -1   |   {C26EFF}Помощник Dmitry Dusk[113] ответил игроку Michael Smit[161]: {FFFFFF}Чтобы трудоустроиться дальнобойщиком требуется пятый уровень. Коман-
+[11:04:12.434827] (script)	chatlisting.lua: -1   |   да /trucker предлагает варианты перевозок.
