@@ -1,4 +1,4 @@
-script_name('Support-Helper')
+script_name('SupportHelper')
 script_description('Support Helper for special project MyHome RP')
 script_author('kyrtion#7310')
 script_properties('work-in-pause')
@@ -8,7 +8,7 @@ require 'lib.moonloader'
 local dlstatus = require('moonloader').download_status
 
 if not doesDirectoryExist('moonloader/config') then createDirectory('moonloader/config') end
-if not doesDirectoryExist('moonloader/config/Support-Helper') then createDirectory ('moonloader/config/Support-Helper') end
+if not doesDirectoryExist('moonloader/config/SupportHelper') then createDirectory ('moonloader/config/SupportHelper') end
 
 local imgui = require 'mimgui' -- теперь мимгуй, а не имгуй...
 local encoding = require 'encoding'
@@ -41,13 +41,13 @@ encoding.default = 'CP1251'
 u8 = encoding.UTF8
 
 
-local askJson = getWorkingDirectory()..'/config/Support-Helper/ask.json'
+local askJson = getWorkingDirectory()..'/config/SupportHelper/ask.json'
 --local adJson = getWorkingDirectory()..'/config/SupportHelper/ad.json'
 local askList = {}
 --local adList = {}
 
 local new, str, sizeof = imgui.new, ffi.string, ffi.sizeof
-local renderWindow = new.bool(true)
+local renderWindow = new.bool(false)
 local menuWindow = new.bool(false)
 local tab = new.int(1)
 local askInput = new.char[256]('')
@@ -69,20 +69,20 @@ local newVersion = 'None'
 local oldVersion = 'None'
 
 -- --! origin/master
--- local update_url = 'https://raw.githubusercontent.com/kyrtion/LSNHelper_mhrp/master/version_lsn.ini'
--- local update_path = getWorkingDirectory() .. '/update_lsn.ini'
+-- local update_url = 'https://raw.githubusercontent.com/kyrtion/SupportHelper_mhrp/master/version_sh.ini'
+-- local update_path = getWorkingDirectory() .. '/update_sh.ini'
 -- local script_vers = tostring(thisScript().version)
--- local script_url = 'https://github.com/kyrtion/LSNHelper_mhrp/blob/master/LSN-Helper.lua?raw=true'
+-- local script_url = 'https://github.com/kyrtion/SupportHelper_mhrp/blob/master/LSN-Helper.lua?raw=true'
 -- local script_path = thisScript().path
 
 -- --! origin/beta
--- local update_url = 'https://raw.githubusercontent.com/kyrtion/LSNHelper_mhrp/beta/version_lsn.ini'
--- local update_path = getWorkingDirectory() .. '/update_lsn.ini'
+-- local update_url = 'https://raw.githubusercontent.com/kyrtion/SupportHelper_mhrp/beta/version_sh.ini'
+-- local update_path = getWorkingDirectory() .. '/update_sh.ini'
 -- local script_vers = tostring(thisScript().version)
--- local script_url = 'https://github.com/kyrtion/LSNHelper_mhrp/blob/beta/LSN-Helper.lua?raw=true'
+-- local script_url = 'https://github.com/kyrtion/SupportHelper_mhrp/blob/beta/LSN-Helper.lua?raw=true'
 -- local script_path = thisScript().path
 
-function send(result) sampAddChatMessage('Support-Helper » '.. result, hex) end
+function send(result) sampAddChatMessage('SupportHelper » '.. result, hex) end
 
 imgui.OnInitialize(function() imgui.DarkTheme(); imgui.GetIO().IniFilename = nil; end)
 
@@ -93,7 +93,7 @@ local newFrame = imgui.OnFrame(
 		local sizeX, sizeY = 700, 340
 		imgui.SetNextWindowPos(imgui.ImVec2(resX / 2, resY / 2), imgui.Cond.FirstUseEver, imgui.ImVec2(0.5, 0.5))
 		imgui.SetNextWindowSize(imgui.ImVec2(sizeX, sizeY * 1.04))
-		imgui.Begin(u8'Answer | Support-Helper '..thisScript().version, nil, imgui.WindowFlags.NoMove + imgui.WindowFlags.NoResize + imgui.WindowFlags.NoCollapse)
+		imgui.Begin(u8'Answer | SupportHelper '..thisScript().version, nil, imgui.WindowFlags.NoMove + imgui.WindowFlags.NoResize + imgui.WindowFlags.NoCollapse)
 
 		imgui.SetCursorPos(imgui.ImVec2(20, 40))
 		imgui.TextColoredRGB('Игрок:')
@@ -289,7 +289,7 @@ local menuFrame = imgui.OnFrame(
         local sizeX, sizeY = 600, 400
         imgui.SetNextWindowPos(imgui.ImVec2(resX / 2, resY / 2), imgui.Cond.FirstUseEver, imgui.ImVec2(0.5, 0.5))
         imgui.SetNextWindowSize(imgui.ImVec2(sizeX, sizeY), imgui.Cond.FirstUseEver)
-        imgui.BeginCustomTitle(u8'Support-Helper - Версия: '..tostring(thisScript().version), 30, menuWindow, imgui.WindowFlags.NoMove + imgui.WindowFlags.NoResize + imgui.WindowFlags.NoCollapse)
+        imgui.BeginCustomTitle(u8'SupportHelper - Версия: '..tostring(thisScript().version), 30, menuWindow, imgui.WindowFlags.NoMove + imgui.WindowFlags.NoResize + imgui.WindowFlags.NoCollapse)
         
         imgui.SetCursorPos(imgui.ImVec2(5, 35))
         imgui.CustomMenu({u8'Главный', u8'Настройка', u8'Объявление', u8'Эфир'}, tab, imgui.ImVec2(75, 30), _, true)
@@ -330,7 +330,7 @@ function main()
 	--adList = json(adJson):read()
 
 	send('Скрипт успешно загружено. Версия: '..thisScript().version)
-	print(); print('Script Support-Helper '..thisScript().version..' loaded - Discord: kyrtion#7310')
+	print(); print('Script SupportHelper '..thisScript().version..' loaded - Discord: kyrtion#7310')
 
 	--! debug window (dont use)
 	sampRegisterChatCommand('sh_ask', function()
