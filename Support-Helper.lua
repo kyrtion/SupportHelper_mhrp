@@ -1,5 +1,5 @@
-script_name('SupportHelper')
-script_description('Support Helper for special project MyHome RP')
+script_name('Support-Helper')
+script_description('Support-Helper for special project MyHome RP')
 script_author('kyrtion#7310')
 script_properties('work-in-pause')
 script_version('0.1')
@@ -8,7 +8,7 @@ require 'lib.moonloader'
 local dlstatus = require('moonloader').download_status
 
 if not doesDirectoryExist('moonloader/config') then createDirectory('moonloader/config') end
-if not doesDirectoryExist('moonloader/config/SupportHelper') then createDirectory ('moonloader/config/SupportHelper') end
+if not doesDirectoryExist('moonloader/config/Support-Helper') then createDirectory ('moonloader/config/Support-Helper') end
 
 local imgui = require 'mimgui' -- теперь мимгуй, а не имгуй...
 local encoding = require 'encoding'
@@ -41,8 +41,8 @@ encoding.default = 'CP1251'
 u8 = encoding.UTF8
 
 
-local askJson = getWorkingDirectory()..'/config/SupportHelper/ask.json'
---local adJson = getWorkingDirectory()..'/config/SupportHelper/ad.json'
+local askJson = getWorkingDirectory()..'/config/Support-Helper/ask.json'
+--local adJson = getWorkingDirectory()..'/config/Support-Helper/ad.json'
 local askList = {}
 --local adList = {}
 
@@ -69,20 +69,20 @@ local newVersion = 'None'
 local oldVersion = 'None'
 
 -- --! origin/master
--- local update_url = 'https://raw.githubusercontent.com/kyrtion/SupportHelper_mhrp/master/version_sh.ini'
+-- local update_url = 'https://raw.githubusercontent.com/kyrtion/LSNHelper_mhrp/master/version_sh.ini'
 -- local update_path = getWorkingDirectory() .. '/update_sh.ini'
 -- local script_vers = tostring(thisScript().version)
--- local script_url = 'https://github.com/kyrtion/SupportHelper_mhrp/blob/master/LSN-Helper.lua?raw=true'
+-- local script_url = 'https://github.com/kyrtion/LSNHelper_mhrp/blob/master/LSN-Helper.lua?raw=true'
 -- local script_path = thisScript().path
 
 -- --! origin/beta
--- local update_url = 'https://raw.githubusercontent.com/kyrtion/SupportHelper_mhrp/beta/version_sh.ini'
+-- local update_url = 'https://raw.githubusercontent.com/kyrtion/LSNHelper_mhrp/beta/version_sh.ini'
 -- local update_path = getWorkingDirectory() .. '/update_sh.ini'
 -- local script_vers = tostring(thisScript().version)
--- local script_url = 'https://github.com/kyrtion/SupportHelper_mhrp/blob/beta/LSN-Helper.lua?raw=true'
+-- local script_url = 'https://github.com/kyrtion/LSNHelper_mhrp/blob/beta/LSN-Helper.lua?raw=true'
 -- local script_path = thisScript().path
 
-function send(result) sampAddChatMessage('SupportHelper » '.. result, hex) end
+function send(result) sampAddChatMessage('Support-Helper » '.. result, hex) end
 
 imgui.OnInitialize(function() imgui.DarkTheme(); imgui.GetIO().IniFilename = nil; end)
 
@@ -93,7 +93,7 @@ local newFrame = imgui.OnFrame(
 		local sizeX, sizeY = 700, 340
 		imgui.SetNextWindowPos(imgui.ImVec2(resX / 2, resY / 2), imgui.Cond.FirstUseEver, imgui.ImVec2(0.5, 0.5))
 		imgui.SetNextWindowSize(imgui.ImVec2(sizeX, sizeY * 1.04))
-		imgui.Begin(u8'Answer | SupportHelper '..thisScript().version, nil, imgui.WindowFlags.NoMove + imgui.WindowFlags.NoResize + imgui.WindowFlags.NoCollapse)
+		imgui.Begin(u8'Answer | Support-Helper '..thisScript().version, nil, imgui.WindowFlags.NoMove + imgui.WindowFlags.NoResize + imgui.WindowFlags.NoCollapse)
 
 		imgui.SetCursorPos(imgui.ImVec2(20, 40))
 		imgui.TextColoredRGB('Игрок:')
@@ -156,7 +156,7 @@ local newFrame = imgui.OnFrame(
 			imgui.OpenPopup(u8'Поиск')
 		end
 
-		if imgui.BeginPopupModal(u8'Поиск', _, imgui.WindowFlags.NoMove + imgui.WindowFlags.NoResize + imgui.WindowFlags.NoCollapse + imgui.WindowFlags.AlwaysAutoResize) then
+		if imgui.BeginPopupModal(u8'Поиск', _, imgui.WindowFlags.NoMove + imgui.WindowFlags.NoResize + imgui.WindowFlags.NoCollapse) then
 			local pSize = imgui.ImVec2(770, 360)
 			imgui.SetWindowSizeVec2(pSize)
 	
@@ -179,9 +179,7 @@ local newFrame = imgui.OnFrame(
 	
 			imgui.SetCursorPos(imgui.ImVec2(19, 130))
 			imgui.BeginChild('ChildWindowsS', imgui.ImVec2(pSize.x/2 + 325, pSize.y/2 + 12), true)
-			--imgui.Separator()
-			local nun = tonumber(#adList)
-			for i=1, #adList do
+			--[[for i=1, #adList do
 				if string.len(str(searchInput)) ~= 0 then
 					if string.find(u8(adList[i]), str(searchInput), 1, true) then
 						if imgui.Button('>##'..tostring(i), imgui.ImVec2(22, 24)) then
@@ -211,10 +209,9 @@ local newFrame = imgui.OnFrame(
 					imgui.Text(u8(adList[i]))
 					if i ~= #adList then imgui.Separator() end
 				end
-			end
+			end]]
 
 			imgui.EndChild()
-
 
 			imgui.SetCursorPos(imgui.ImVec2(5, pSize.y - 20))
 			if imgui.Button(u8'Закрыть', imgui.ImVec2(pSize.x - 30, 25)) then
@@ -229,52 +226,37 @@ local newFrame = imgui.OnFrame(
 		imgui.PushStyleColor(imgui.Col.Button, imgui.ImVec4(0.2, 0.77, 0.33, 1.0))
 		imgui.PushStyleColor(imgui.Col.ButtonHovered, imgui.ImVec4(0.2, 0.77, 0.33, 0.9))
 		imgui.PushStyleColor(imgui.Col.ButtonActive, imgui.ImVec4(0.2, 0.77, 0.33, 0.8))
-		if imgui.Button(u8'Опубликовать', imgui.ImVec2((sizeX - 42) / 2 , 25)) then
+		if imgui.Button(u8'Ответить', imgui.ImVec2((sizeX - 42) / 2 , 25)) then
 			local tempText = (u8:decode(str(askInput)))
-			local Char = tempText:match('.+(%p)$')
 			
 			if (u8:decode(str(askInput))) == (nil or '') then
 				send('В тексте пусто, зачем отправлять?', -1)
-
-			elseif Char and Char ~= ('$' or ',' or '/' or '>' or '<' or '-' or '=' or '+' or '_' or "'" or '"') then
-				sampSendDialogResponse(1536,1,0,(u8:decode(str(askInput))))
+			else
+				sampSendDialogResponse(1536, 1, 0, (u8:decode(str(askInput))))
 				renderWindow[0] = false
 				confirm = true
-
 				lua_thread.create(function()
 					askList[askText] = (u8:decode(str(askInput)))
 					json(askJson):write(askList)
 				end)
-
 				askNick, askDate, askText = '', '', ''
-			
-			else
-				send('Вы не ставили в конце знаки препинание')
 			end
 		end
 		imgui.PopStyleColor(3)
-		
+
 		imgui.PushStyleColor(imgui.Col.Button, imgui.ImVec4(1.00, 0.25, 0.25, 1.0))
 		imgui.PushStyleColor(imgui.Col.ButtonHovered, imgui.ImVec4(1.00, 0.25, 0.25, 0.9))
 		imgui.PushStyleColor(imgui.Col.ButtonActive, imgui.ImVec4(1.00, 0.25, 0.25, 0.8))
 		imgui.SameLine((sizeX - 17) / 2 + 10)
-		if imgui.Button(u8'Отклонить', imgui.ImVec2((sizeX - 42) / 2 , 25)) then
-			if (u8:decode(str(askInput))) == (nil or '') then
-				send('Вы не указали причину в поле', -1)
-			else
-				sampSendDialogResponse(1536,0,0,(u8:decode(str(askInput))))
-				
-				renderWindow[0] = false
-				copying = false
-
-				askNick, askDate, askText = '', '', ''
-
-				lua_thread.create(function()
-					wait(300)
-					sampSendChat('/edit')
-				end)
-
-			end
+		if imgui.Button(u8'Игнорить', imgui.ImVec2((sizeX - 42) / 2 , 25)) then
+			sampSendDialogResponse(1536, 0, 0, '')
+			renderWindow[0] = false
+			copying = false
+			askNick, askDate, askText = '', '', ''
+			lua_thread.create(function()
+				wait(300)
+				sampSendChat('/edit')
+			end)
 		end
 		imgui.PopStyleColor(3)
 		
@@ -289,7 +271,7 @@ local menuFrame = imgui.OnFrame(
         local sizeX, sizeY = 600, 400
         imgui.SetNextWindowPos(imgui.ImVec2(resX / 2, resY / 2), imgui.Cond.FirstUseEver, imgui.ImVec2(0.5, 0.5))
         imgui.SetNextWindowSize(imgui.ImVec2(sizeX, sizeY), imgui.Cond.FirstUseEver)
-        imgui.BeginCustomTitle(u8'SupportHelper - Версия: '..tostring(thisScript().version), 30, menuWindow, imgui.WindowFlags.NoMove + imgui.WindowFlags.NoResize + imgui.WindowFlags.NoCollapse)
+        imgui.BeginCustomTitle(u8'Support-Helper - Версия: '..tostring(thisScript().version), 30, menuWindow, imgui.WindowFlags.NoMove + imgui.WindowFlags.NoResize + imgui.WindowFlags.NoCollapse)
         
         imgui.SetCursorPos(imgui.ImVec2(5, 35))
         imgui.CustomMenu({u8'Главный', u8'Настройка', u8'Объявление', u8'Эфир'}, tab, imgui.ImVec2(75, 30), _, true)
@@ -330,7 +312,7 @@ function main()
 	--adList = json(adJson):read()
 
 	send('Скрипт успешно загружено. Версия: '..thisScript().version)
-	print(); print('Script SupportHelper '..thisScript().version..' loaded - Discord: kyrtion#7310')
+	print(); print('Script Support-Helper '..thisScript().version..' loaded - Discord: kyrtion#7310')
 
 	--! debug window (dont use)
 	sampRegisterChatCommand('sh_ask', function()
@@ -393,7 +375,7 @@ function onWindowMessage(msg, wparam, lparam)
 	end
 end
 
---[[function sampev.onShowDialog(id, style, title, button1, button2, text)
+function sampev.onShowDialog(id, style, title, button1, button2, text)
 	if id == 1536 and title == '{6333FF}Публикация объявления' then
 		if notAdNick then
 			askNick = ( text:match('%{ffffff%}Отправитель%: %{7FFF00%}(%w+ %w+)') ):gsub("\n", "")
@@ -413,67 +395,36 @@ end
 			copying = true
 		end
 		return false
-
-	elseif id == 1537 and title == '{6333FF}Публикация объявления: {ffffff}Подтверждение' and confirm then
-		sampSendDialogResponse(1537,1,0,0)
-		confirm = false
-		return false
 	end
-end]]
+end
 
---[[function sampev.onSendDialogResponse(dialogId, button, listboxId, input)
+function sampev.onSendDialogResponse(dialogId, button, listboxId, input)
 	if dialogId == 1000 and button == 1 then
 		if input:find('-') then
 			notAdNick = true
 		else
 			local fr = ''; fr, askNick = input:match('(%d+)%. (.*)')
+			notAdNick = false
 		end
 	end
-end]]
+end
 
---[[function sampev.onServerMessage(color, text)
-	if color == 2147418282 then
-		if text:find('новое объявление на проверку') then
-			printStyledString('/edit', 5000, 4)
-			send(text)
-			return false
-
-		elseif text:find('запросил отказ на публикацию') then
-			send(text)
-			return false
-			
-		end
+function sampev.onServerMessage(color, text)
+	if color == -1616928769 and (
+		text == "Подсказка: Чтобы открыть инвентарь, нажмите 'Y'" or
+		text == "Подсказка: Чтобы взаимодействовать с ботом/игроком, нажмите 'пр. кнопка мыши' + 'H'" or
+		text == "Подсказка: Чтобы открыть багажник машины, нажмите 'пр. кнопка мыши' + 'Прыжок'" or
+		text == "Подсказка: Вы можете отключить помощь в /mm -> настройки"
+	) then 
+		return false
 	end
 
-	if color == -1616928769 and (text == "Подсказка: Чтобы открыть инвентарь, нажмите 'Y'" or
-								 text == "Подсказка: Чтобы взаимодействовать с ботом/игроком, нажмите 'пр. кнопка мыши' + 'H'" or
-								 text == "Подсказка: Чтобы открыть багажник машины, нажмите 'пр. кнопка мыши' + 'Прыжок'" or
-								 text == "Подсказка: Вы можете отключить помощь в /mm -> настройки"
-		) then return false
-	end
-
-	if color == -10059521 and (text:find('Отклонил объявление. Причина:') or
-							   text:find('Никто не подавал объявлений') or
-							   text:find('Данное объявление уже редактирует') or
-							   text:find('Тот, кто подал объявление, покинул сервер')
-		) then
+	if color == -1616928769 and (text == "Используйте: /ans [id игрока] [текст]") then
 		send(text)
 		return false
 	end
 
-	if color == -1 and text:find('За опубликованное сообщение вы получили') then
-		TText = text:match('%{008000%}(%d+)$%{ffffff%}')
-		send('За опубликованное сообщение вы получили '..TText..'$ на ваш банк. счёт.')
-		
-		lua_thread.create(function()
-			wait(100)
-			sampSendChat('/edit')
-		end)
-
-		return false
-	end
-
-	if color == -1 and (text:find('Вы отклонили объявление') or text:find('Тот, кто подал объявление, покинул сервер')) then
+	if color == -667156735 and (text == "Используйте: /ans [id игрока] [текст]") then
 		send(text)
 		return false
 	end
@@ -483,7 +434,6 @@ end]]
 		if text:match('%[News Studio%] (.*) %|') then 
 			wtfac = text:match('%[News Studio%] (.*) %|')
 			print('>> [' .. wtfac .. ']')
-
 			lua_thread.create(function()
 				local lockAd = false
 				local lockAd2 = false
@@ -500,11 +450,10 @@ end]]
 					lockAd = true
 				end
 			end)
-
 			return true
 		end
 	end
-end]]
+end
 
 --==[ IMGUI FUNCS ]==--
 -- labels - Array - названия элементов меню
