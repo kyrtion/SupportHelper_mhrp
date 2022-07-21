@@ -2,7 +2,7 @@ script_name('Support-Helper')
 script_description('Support-Helper for special project MyHome RP')
 script_author('kyrtion#7310')
 script_properties('work-in-pause')
-script_version('0.1')
+script_version('1.0')
 
 require 'lib.moonloader'
 local dlstatus = require('moonloader').download_status
@@ -78,19 +78,20 @@ local lockFailed = false
 local newVersion = 'None'
 local oldVersion = 'None'
 
--- --! origin/master
--- local update_url = 'https://raw.githubusercontent.com/kyrtion/SupportHelper_mhrp/master/version_sh.ini'
--- local update_path = getWorkingDirectory() .. '/update_sh.ini'
--- local script_vers = tostring(thisScript().version)
--- local script_url = 'https://github.com/kyrtion/SupportHelper_mhrp/blob/master/LSN-Helper.lua?raw=true'
--- local script_path = thisScript().path
+--! origin/master
+local update_url = 'https://raw.githubusercontent.com/kyrtion/SupportHelper_mhrp/master/version_sh.ini'
+local update_path = getWorkingDirectory() .. '/update_sh.ini'
+local script_vers = tostring(thisScript().version)
+local script_url = 'https://github.com/kyrtion/SupportHelper_mhrp/blob/master/Support-Helper.lua?raw=true'
+local script_path = thisScript().path
 
--- --! origin/beta
+--! origin/beta
 -- local update_url = 'https://raw.githubusercontent.com/kyrtion/SupportHelper_mhrp/beta/version_sh.ini'
 -- local update_path = getWorkingDirectory() .. '/update_sh.ini'
 -- local script_vers = tostring(thisScript().version)
--- local script_url = 'https://github.com/kyrtion/SupportHelper_mhrp/blob/beta/LSN-Helper.lua?raw=true'
+-- local script_url = 'https://github.com/kyrtion/SupportHelper_mhrp/blob/beta/Support-Helper.lua?raw=true'
 -- local script_path = thisScript().path
+
 
 function send(result) sampAddChatMessage('Support-Helper » '.. result, hex) end
 
@@ -401,18 +402,16 @@ local menuFrame = imgui.OnFrame(
 					askList[idNew].ask = u8:decode(str(newAskInput))
 					askList[idNew].answer = u8:decode(str(newAnswerInput))
 					askList[idNew].new_date = os.date('%Y.%m.%d %X')
-					--table.remove()
+
 					table.sort(askList, function(a,b) return a.old_date > b.old_date end) -- askList.old_date -> a.old_date, b.old_date
 					json(askJson):write(askList)
 					imgui.CloseCurrentPopup()
 					newAskInput, newAnswerInput = new.char[256](''), new.char[256]('')
 				end
 				imgui.SameLine()
-
 				if imgui.Button(u8'Закрыть', imgui.ImVec2(sizeX/2 - 23, 25)) then
 					imgui.CloseCurrentPopup()
 				end
-
 				imgui.EndPopup()
 			end
 			if imgui.BeginPopupModal(u8'Удаление готового вопроса | Support-Helper '..thisScript().version, _, imgui.WindowFlags.NoMove + imgui.WindowFlags.NoResize + imgui.WindowFlags.NoCollapse) then
@@ -544,7 +543,7 @@ local menuFrame = imgui.OnFrame(
 							imgui.Text(u8(askList[i].player..': '..askList[i].ask))
 							imgui.Text(u8(askList[i].helper..': '..askList[i].answer))
 							imgui.NextColumn()
-							if i ~= #askList then imgui.Separator() end
+							imgui.Separator()
 						end
 					else
 						imgui.Columns(2)
@@ -569,18 +568,13 @@ local menuFrame = imgui.OnFrame(
 						imgui.Text(u8(askList[i].player..': '..askList[i].ask))
 						imgui.Text(u8(askList[i].helper..': '..askList[i].answer))
 						imgui.NextColumn()
-						if i ~= #askList then imgui.Separator() end
+						imgui.Separator()
 					end
 				end
 			end
 		end
 
 		imgui.EndChild()
-		-- if tab[0] == 1 then
-			-- imgui.Text(u8'Первый исключительный раздел')
-			-- здесь кнопки для первого раздела
-		--end
-
 		imgui.End()
 	end
 )
@@ -605,37 +599,38 @@ function main()
 	json(tempJson):write(tempList)
 
 	-- внесение в json по i (без цикла проверки)
-	sampRegisterChatCommand('de', function(index)
-		if tonumber(index:match('%d+')) > 0 then
-			send('you selected index: '..index)
-			table.remove(tempList, index) -- рабочий код, протестирован, удаляется толькот от 1 до беск.+ индекса
-			json(tempJson):write(tempList)
-			send('deleted!')
-		else
-			send('/de [index]')
-		end
-	end)
+	-- sampRegisterChatCommand('de', function(index)
+	-- 	if tonumber(index:match('%d+')) > 0 then
+	-- 		send('you selected index: '..index)
+	-- 		table.remove(tempList, index) -- рабочий код, протестирован, удаляется толькот от 1 до беск.+ индекса
+	-- 		json(tempJson):write(tempList)
+	-- 		send('deleted!')
+	-- 	else
+	-- 		send('/de [index]')
+	-- 	end
+	-- end)
+	
+	-- удаление с таблицы по индексу
+	-- sampRegisterChatCommand('ad', function()
+	-- 	send('try adding')
+	-- 	local list = {
+	-- 		old_date = os.date('%Y.%m.%d %X'),
+	-- 		type = 'temp',
+	-- 		player = 'Martin Sonnet[233]',
+	-- 		ask = 'Как зарабатывать деньги? Требую длинный ответ!'
+	-- 	}
+	-- 	table.insert(tempList, list)
+	-- 	json(tempJson):write(tempList)
+	-- 	send('created!')
+	-- end)
 
-	sampRegisterChatCommand('ad', function()
-		send('try adding')
-		local list = {
-			old_date = os.date('%Y.%m.%d %X'),
-			type = 'temp',
-			player = 'Martin Sonnet[233]',
-			ask = 'Как зарабатывать деньги? Требую длинный ответ!'
-		}
-		table.insert(tempList, list)
-		json(tempJson):write(tempList)
-		send('created!')
-	end)
-
-	send('Скрипт успешно загружено. Версия: '..thisScript().version)
+	send('Скрипт успешно загружено. Версия: '..thisScript().version..'. Команда: /sh_menu')
 	print(); print('Script Support-Helper '..thisScript().version..' loaded - Discord: kyrtion#7310')
 
 	--! debug window (dont use)
-	sampRegisterChatCommand('sh_ask', function()
-		renderWindow[0] = not renderWindow[0]
-	end)
+	-- sampRegisterChatCommand('sh_ask', function()
+	-- 	renderWindow[0] = not renderWindow[0]
+	-- end)
 
 	sampRegisterChatCommand('sh_menu', function()
 		menuWindow[0] = not menuWindow[0]
@@ -663,7 +658,7 @@ function main()
 				newVersion = tostring(updateIni.info.version):gsub('"', '')
 				oldVersion = tostring(thisScript().version)
 				if newVersion ~= oldVersion then
-					send('Есть обновление! Версия: '..newVersion..'. Чтобы обновить вводите /verify', -1)
+					send('Есть обновление! Версия: '..newVersion..'. Чтобы обновить вводите /sh_verify', -1)
 					update_state = true
 					lockVerify = true
 				end
