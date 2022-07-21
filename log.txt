@@ -24,6 +24,10 @@
 [10:56:08.519038] (script)	chatlisting.lua: -1   |   а сижу
 [10:56:10.077109] (script)	chatlisting.lua: 6921   1   {6333FF}Рассмотрение вопроса от 16.07.2022 10:53:11   Ответить   Игнор   {b2b2b2}Вопрос от Dorado_Clasico[160]: {ffffff}что где делать на работе в шахте ни ме
 ток ничего
+
+[askList[i].old_date] [Вопрос] askList[i].player: askList[i].ask
+[askList[i].new_date] [Ответ] askList[i].helper: askList[i].answer
+
 [10:56:56.905793] (script)	chatlisting.lua: -1   |   {C26EFF}Помощник Yasuo Kudo[2] ответил игроку Dorado Clasico[160]: {FFFFFF}Жалобы пишутся на форум проекта. Чтобы найти форум, оставьте в поиск-
 [10:56:56.907792] (script)	chatlisting.lua: -1   |   овой строке сообщение:"Форум MyHome"
 [10:57:48.628162] (script)	chatlisting.lua: -100684886   |   [H] Yasuo Kudo[2]: непонял
