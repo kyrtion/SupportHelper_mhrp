@@ -643,8 +643,6 @@ function main()
 	end
 end
 
-
-
 function onWindowMessage(msg, wparam, lparam)
 	if msg == 0x100 or msg == 0x101 then
 		if (wparam == VK_ESCAPE and (renderWindow[0]) or (menuWindow[0])) and not isPauseMenuActive() and not sampIsChatInputActive() and not isSampfuncsConsoleActive() then
