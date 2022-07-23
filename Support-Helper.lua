@@ -586,43 +586,8 @@ function main()
 	askList = json(askJson):read()
 
 	if not doesFileExist(tempJson) then json(tempJson):write({}) end
-	--json(tempJson):write({}) -- удаляем временные вопросы после запуска скрипта
+	json(tempJson):write({}) -- удаляем временные вопросы после запуска скрипта
 	tempList = json(tempJson):read()
--- 	local ttaf = [[
--- типотакfфа
--- 1
--- 2
--- 3]]
--- 	setClipboardText(ttaf)
-	--for i=1, #tempList do
-	table.sort(tempList, function(a,b) return a.old_date > b.old_date end)
-	json(tempJson):write(tempList)
-
-	-- внесение в json по i (без цикла проверки)
-	-- sampRegisterChatCommand('de', function(index)
-	-- 	if tonumber(index:match('%d+')) > 0 then
-	-- 		send('you selected index: '..index)
-	-- 		table.remove(tempList, index) -- рабочий код, протестирован, удаляется толькот от 1 до беск.+ индекса
-	-- 		json(tempJson):write(tempList)
-	-- 		send('deleted!')
-	-- 	else
-	-- 		send('/de [index]')
-	-- 	end
-	-- end)
-	
-	-- удаление с таблицы по индексу
-	-- sampRegisterChatCommand('ad', function()
-	-- 	send('try adding')
-	-- 	local list = {
-	-- 		old_date = os.date('%Y.%m.%d %X'),
-	-- 		type = 'temp',
-	-- 		player = 'Martin Sonnet[233]',
-	-- 		ask = 'Как зарабатывать деньги? Требую длинный ответ!'
-	-- 	}
-	-- 	table.insert(tempList, list)
-	-- 	json(tempJson):write(tempList)
-	-- 	send('created!')
-	-- end)
 
 	send('Скрипт успешно загружено. Версия: '..thisScript().version..'. Команда: /sh_menu')
 	print(); print('Script Support-Helper '..thisScript().version..' loaded - Discord: kyrtion#7310')
