@@ -117,7 +117,7 @@ local newFrame = imgui.OnFrame(
 		imgui.TextColoredRGB('{FFFFFF}' .. askPlayer)
 		imgui.EndChild()
 		imgui.SameLine((sizeX - 15) / 2 + 10);
-
+		--
 		imgui.BeginChild('ChildWindowsDate', imgui.ImVec2(sizeX - 371, 25), true)
 		imgui.TextColoredRGB(askDate)
 		imgui.EndChild()
@@ -128,22 +128,18 @@ local newFrame = imgui.OnFrame(
 		imgui.TextColoredRGB(askText)
 		imgui.EndChild()
 
-		imgui.SetCursorPos(imgui.ImVec2(20, 165))
-		--imgui.TextColoredRGB('Введите новый текст для этого объявления. Но не оставьте поле пустым!')
-
-		imgui.SetCursorPos(imgui.ImVec2(20, 180))
-		imgui.TextColoredRGB('Ответ:')
-		--imgui.TextColoredRGB('Вы так-же можете отклонить объявление с написанной в поле причиной и нажав после кнопку "Отклонить".')
+		
+		imgui.SetCursorPos(imgui.ImVec2(20, 100))
+		imgui.TextColoredRGB('Вопрос:')
 
 		if copying then
 			imgui.SetCursorPos(imgui.ImVec2(21, 160))
 			imgui.TextColoredRGB('{FFAA00}Вопрос совпадает одной и тоже, скопировано ответ в прошлом раз. Проверьте, всё правильно ли написано.')
 		end
 
-		
-		imgui.SetCursorPos(imgui.ImVec2(20, 100))
-		imgui.TextColoredRGB('Вопрос:')
-		
+		imgui.SetCursorPos(imgui.ImVec2(20, 180))
+		imgui.TextColoredRGB('Ответ:')
+
 		imgui.SetCursorPos(imgui.ImVec2(20, sizeY - 110))
 		imgui.PushItemWidth(sizeX - 40);
 		if imgui.IsWindowAppearing() then imgui.SetKeyboardFocusHere(-1) end
@@ -585,7 +581,7 @@ function main()
 	if not doesFileExist(askJson) then json(askJson):write({}) end
 	askList = json(askJson):read()
 
-	if not doesFileExist(tempJson) then json(tempJson):write({}) end
+	if not doesFileExist(askJson) then json(askJson):write({}) end
 	json(tempJson):write({}) -- удаляем временные вопросы после запуска скрипта
 	tempList = json(tempJson):read()
 
@@ -659,7 +655,7 @@ end
 
 function sampev.onShowDialog(id, style, title, button1, button2, text)
 	if id == 6921 and style == 1 and title:find('%{6333FF%}Рассмотрение вопроса от') then
-		msg = (text:gsub('%{......}%')):gsub('\n', '')
+		msg = (text:gsub('%{......%}', '')):gsub('\n', '')
 		askDate = title:match('%{6333FF%}Рассмотрение вопроса от (.*)')
 		askPlayer, askText = msg:match('Вопрос от (.*)%: (.*)')
 		
