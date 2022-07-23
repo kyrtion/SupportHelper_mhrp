@@ -108,8 +108,8 @@ local newFrame = imgui.OnFrame(
 
 		imgui.SetCursorPos(imgui.ImVec2(20, 40))
 		imgui.TextColoredRGB('Игрок:')
-
 		imgui.SameLine((sizeX - 15) / 2 + 11)
+		--
 		imgui.TextColoredRGB('Рассмотрение вопроса от:')
 
 		imgui.SetCursorPos(imgui.ImVec2(20, 60));
@@ -159,8 +159,8 @@ local newFrame = imgui.OnFrame(
 			end
 		end
 		imgui.PopStyleColor(3)
-
 		imgui.SameLine((sizeX - 17) / 2 + 10)
+		--
 		if imgui.Button(u8'Поиск', imgui.ImVec2((sizeX - 42) / 2 , 25)) then
 			imgui.OpenPopup(u8'Поиск | Support-Helper '..thisScript().version)
 		end
@@ -170,7 +170,10 @@ local newFrame = imgui.OnFrame(
 			imgui.SetWindowSizeVec2(pSize)
 	
 			imgui.SetCursorPos(imgui.ImVec2(20, 45))
-			imgui.Text(u8'Текст:') imgui.SameLine(70) imgui.TextColoredRGB(askText)
+			imgui.Text(u8'Текст:')
+			imgui.SameLine(70)
+			--
+			imgui.TextColoredRGB(askText)
 				
 			imgui.SetCursorPos(imgui.ImVec2(20, 70)) imgui.Text(u8'Поиск:')
 			
@@ -204,10 +207,10 @@ local newFrame = imgui.OnFrame(
 						end
 						imgui.SetColumnWidth(0, 60)
 						imgui.NextColumn()
-						if askList[i].type == 'self' then imgui.TextColoredRGB('{ffffff}Вопрос {68e625}$ {ffffff}'..askList[i].ask) else imgui.TextColoredRGB('{ffffff}Вопрос {fac146}: {ffffff}'..askList[i].ask) end
-						if askList[i].type == 'self' then imgui.TextColoredRGB('{ffffff}Ответ {68e625}$ {ffffff}'..askList[i].answer) else imgui.TextColoredRGB('{ffffff}Ответ {fac146}: {ffffff}'..askList[i].answer) end
+						if askList[i].type == 'self' then imgui.TextColoredRGB('{ffffff}Вопрос {68e625}$ {ffffff}'..askList[i].ask) else imgui.TextColoredRGB('{ffffff}'..askList[i].player..' {fac146}: {ffffff}'..askList[i].ask) end
+						if askList[i].type == 'self' then imgui.TextColoredRGB('{ffffff}Ответ {68e625}$ {ffffff}'..askList[i].answer) else imgui.TextColoredRGB('{ffffff}'..askList[i].helper..' {fac146}: {ffffff}'..askList[i].answer) end
 						imgui.NextColumn()
-						if i ~= #askList then imgui.Separator() end
+						imgui.Separator()
 					end
 				else -- если в поиске ничего нет, даже никакое значение
 					imgui.Columns(2)
@@ -221,10 +224,10 @@ local newFrame = imgui.OnFrame(
 					end
 					imgui.SetColumnWidth(0, 60)
 					imgui.NextColumn()
-					if askList[i].type == 'self' then imgui.TextColoredRGB('{ffffff}Вопрос {68e625}$ {ffffff}'..askList[i].ask) else imgui.TextColoredRGB('{ffffff}Вопрос {fac146}: {ffffff}'..askList[i].ask) end
-					if askList[i].type == 'self' then imgui.TextColoredRGB('{ffffff}Ответ {68e625}$ {ffffff}'..askList[i].answer) else imgui.TextColoredRGB('{ffffff}Ответ {fac146}: {ffffff}'..askList[i].answer) end
+					if askList[i].type == 'self' then imgui.TextColoredRGB('{ffffff}Вопрос {68e625}$ {ffffff}'..askList[i].ask) else imgui.TextColoredRGB('{ffffff}'..askList[i].player..' {fac146}: {ffffff}'..askList[i].ask) end
+					if askList[i].type == 'self' then imgui.TextColoredRGB('{ffffff}Ответ {68e625}$ {ffffff}'..askList[i].answer) else imgui.TextColoredRGB('{ffffff}'..askList[i].helper..' {fac146}: {ffffff}'..askList[i].answer) end
 					imgui.NextColumn()
-					if i ~= #askList then imgui.Separator() end
+					imgui.Separator()
 				end
 			end
 
@@ -235,7 +238,7 @@ local newFrame = imgui.OnFrame(
 				searchInput = new.char[256]('')
 				imgui.CloseCurrentPopup()
 			end
-	
+
 			imgui.EndPopup()
 		end
 
@@ -261,6 +264,7 @@ local newFrame = imgui.OnFrame(
 		imgui.PushStyleColor(imgui.Col.ButtonHovered, imgui.ImVec4(1.00, 0.25, 0.25, 0.9))
 		imgui.PushStyleColor(imgui.Col.ButtonActive, imgui.ImVec4(1.00, 0.25, 0.25, 0.8))
 		imgui.SameLine((sizeX - 17) / 2 + 10)
+		--
 		if imgui.Button(u8'Игнорить', imgui.ImVec2((sizeX - 42) / 2 , 25)) then
 			imgui.OpenPopup(u8'Игнор | Support-Helper '..thisScript().version)
 		end
@@ -271,7 +275,10 @@ local newFrame = imgui.OnFrame(
 			imgui.SetWindowSizeVec2(pSize)
 	
 			imgui.SetCursorPos(imgui.ImVec2(20, 45))
-			imgui.Text(u8'Вопрос:') imgui.SameLine(70) imgui.TextColoredRGB(askText)
+			imgui.Text(u8'Вопрос:')
+			imgui.SameLine(70)
+			--
+			imgui.TextColoredRGB(askText)
 				
 			imgui.SetCursorPos(imgui.ImVec2(20, 70))
 			imgui.Text(u8'Вы не знаете как отвечать и хотите это проигнорить вопрос?')
@@ -288,9 +295,8 @@ local newFrame = imgui.OnFrame(
 				askPlayer, askDate, askText = '', '', ''
 			end
 			imgui.PopStyleColor(3)
-
 			imgui.SameLine(280)
-
+			--
 			imgui.PushStyleColor(imgui.Col.Button, imgui.ImVec4(1.00, 0.25, 0.25, 1.0))
 			imgui.PushStyleColor(imgui.Col.ButtonHovered, imgui.ImVec4(1.00, 0.25, 0.25, 0.9))
 			imgui.PushStyleColor(imgui.Col.ButtonActive, imgui.ImVec4(1.00, 0.25, 0.25, 0.8))
@@ -314,8 +320,12 @@ local menuFrame = imgui.OnFrame(
 		imgui.BeginCustomTitle(u8'Меню | Support-Helper '..tostring(thisScript().version), 30, menuWindow, imgui.WindowFlags.NoMove + imgui.WindowFlags.NoResize + imgui.WindowFlags.NoCollapse)
 		
 		local csbutt = imgui.ImVec2(sizeX - 647, 25)
-		if imgui.Button(u8'Главная', csbutt) then tab[0] = 1 end imgui.SameLine()
-		if imgui.Button(u8'Готовые вопросы', csbutt) then tab[0] = 2 end imgui.SameLine()
+		if imgui.Button(u8'Главная', csbutt) then tab[0] = 1 end
+		imgui.SameLine()
+		--
+		if imgui.Button(u8'Готовые вопросы', csbutt) then tab[0] = 2 end
+		imgui.SameLine()
+		--
 		if imgui.Button(u8'Логи', csbutt) then tab[0] = 3 end
 
 		local childSize = sizeX - 100
@@ -405,6 +415,7 @@ local menuFrame = imgui.OnFrame(
 					newAskInput, newAnswerInput = new.char[256](''), new.char[256]('')
 				end
 				imgui.SameLine()
+				--
 				if imgui.Button(u8'Закрыть', imgui.ImVec2(sizeX/2 - 23, 25)) then
 					imgui.CloseCurrentPopup()
 				end
@@ -435,9 +446,8 @@ local menuFrame = imgui.OnFrame(
 					imgui.CloseCurrentPopup()
 				end
 				imgui.PopStyleColor(3)
-	
 				imgui.SameLine()
-	
+				--
 				imgui.PushStyleColor(imgui.Col.Button, imgui.ImVec4(1.00, 0.25, 0.25, 1.0))
 				imgui.PushStyleColor(imgui.Col.ButtonHovered, imgui.ImVec4(1.00, 0.25, 0.25, 0.9))
 				imgui.PushStyleColor(imgui.Col.ButtonActive, imgui.ImVec4(1.00, 0.25, 0.25, 0.8))
@@ -483,7 +493,7 @@ local menuFrame = imgui.OnFrame(
 					newAskInput, newAnswerInput = new.char[256](''), new.char[256]('')
 				end
 				imgui.SameLine()
-
+				--
 				if imgui.Button(u8'Закрыть', imgui.ImVec2(sizeX/2 - 23, 25)) then
 					imgui.CloseCurrentPopup()
 				end
@@ -793,6 +803,7 @@ function imgui.TextColoredRGB(text)
 				for i = 0, #text do
 					imgui.TextColored(colors_[i] or colors[1], u8(text[i]))
 					imgui.SameLine(nil, 0)
+					--
 				end
 				imgui.NewLine()
 			else imgui.Text(u8(w)) end
