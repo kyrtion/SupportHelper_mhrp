@@ -2,7 +2,7 @@ script_name('Support-Helper')
 script_description('Support-Helper for special project MyHome RP')
 script_author('kyrtion#7310')
 script_properties('work-in-pause')
-script_version('1.0')
+script_version('1.1')
 
 require 'lib.moonloader'
 local dlstatus = require('moonloader').download_status
