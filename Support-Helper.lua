@@ -10,7 +10,7 @@ local dlstatus = require('moonloader').download_status
 if not doesDirectoryExist('moonloader/config') then createDirectory('moonloader/config') end
 if not doesDirectoryExist('moonloader/config/Support-Helper') then createDirectory ('moonloader/config/Support-Helper') end
 
-local imgui = require 'mimgui' -- С‚РµРїРµСЂСЊ РјРёРјРіСѓР№, Р° РЅРµ РёРјРіСѓР№...
+local imgui = require 'mimgui' -- теперь мимгуй, а не имгуй...
 local encoding = require 'encoding'
 local ffi = require 'ffi'
 local sampev = require 'lib.samp.events'
@@ -93,7 +93,7 @@ local script_path = thisScript().path
 -- local script_path = thisScript().path
 
 
-function send(result) sampAddChatMessage('Support-Helper В» '.. result, hex) end
+function send(result) sampAddChatMessage('Support-Helper » '.. result, hex) end
 
 imgui.OnInitialize(function() imgui.DarkTheme(); imgui.GetIO().IniFilename = nil; end)
 
@@ -107,10 +107,10 @@ local newFrame = imgui.OnFrame(
 		imgui.Begin(u8'Ask | Support-Helper '..thisScript().version, nil, imgui.WindowFlags.NoMove + imgui.WindowFlags.NoResize + imgui.WindowFlags.NoCollapse)
 
 		imgui.SetCursorPos(imgui.ImVec2(20, 40))
-		imgui.TextColoredRGB('РРіСЂРѕРє:')
+		imgui.TextColoredRGB('Игрок:')
 		imgui.SameLine((sizeX - 15) / 2 + 11)
 		--
-		imgui.TextColoredRGB('Р Р°СЃСЃРјРѕС‚СЂРµРЅРёРµ РІРѕРїСЂРѕСЃР° РѕС‚:')
+		imgui.TextColoredRGB('Рассмотрение вопроса от:')
 
 		imgui.SetCursorPos(imgui.ImVec2(20, 60));
 		imgui.BeginChild('ChildWindowsPlayer', imgui.ImVec2(sizeX - 371, 25), true)
@@ -130,15 +130,15 @@ local newFrame = imgui.OnFrame(
 
 		
 		imgui.SetCursorPos(imgui.ImVec2(20, 100))
-		imgui.TextColoredRGB('Р’РѕРїСЂРѕСЃ:')
+		imgui.TextColoredRGB('Вопрос:')
 
 		if copying then
 			imgui.SetCursorPos(imgui.ImVec2(21, 160))
-			imgui.TextColoredRGB('{FFAA00}Р’РѕРїСЂРѕСЃ СЃРѕРІРїР°РґР°РµС‚ РѕРґРЅРѕР№ Рё С‚РѕР¶Рµ, СЃРєРѕРїРёСЂРѕРІР°РЅРѕ РѕС‚РІРµС‚ РІ РїСЂРѕС€Р»РѕРј СЂР°Р·. РџСЂРѕРІРµСЂСЊС‚Рµ, РІСЃС‘ РїСЂР°РІРёР»СЊРЅРѕ Р»Рё РЅР°РїРёСЃР°РЅРѕ.')
+			imgui.TextColoredRGB('{FFAA00}Вопрос совпадает одной и тоже, скопировано ответ в прошлом раз. Проверьте, всё правильно ли написано.')
 		end
 
 		imgui.SetCursorPos(imgui.ImVec2(20, 180))
-		imgui.TextColoredRGB('РћС‚РІРµС‚:')
+		imgui.TextColoredRGB('Ответ:')
 
 		imgui.SetCursorPos(imgui.ImVec2(20, sizeY - 110))
 		imgui.PushItemWidth(sizeX - 40);
@@ -151,31 +151,31 @@ local newFrame = imgui.OnFrame(
 		imgui.PushStyleColor(imgui.Col.Button, imgui.ImVec4(0.34, 0.42, 0.51, 1.0))
 		imgui.PushStyleColor(imgui.Col.ButtonHovered, imgui.ImVec4(0.34, 0.42, 0.51, 0.9))
 		imgui.PushStyleColor(imgui.Col.ButtonActive, imgui.ImVec4(0.34, 0.42, 0.51, 0.8))
-		if imgui.Button(u8'РџРµСЂРµРґР°С‚СЊ РІ /h', imgui.ImVec2((sizeX - 42) / 2 , 25)) then
+		if imgui.Button(u8'Передать в /h', imgui.ImVec2((sizeX - 42) / 2 , 25)) then
 			if (u8:decode(askText)) == (nil or '') then
-				send('Р’ С‚РµРєСЃС‚Рµ РїСѓСЃС‚Рѕ, Р·Р°С‡РµРј РїРµСЂРµРґР°С‚СЊ?', -1)
+				send('В тексте пусто, зачем передать?', -1)
 			else
-				sampSendChat('/h << Р’РѕРїСЂРѕСЃ >> '.. askPlayer .. ': '.. askText)
+				sampSendChat('/h << Вопрос >> '.. askPlayer .. ': '.. askText)
 			end
 		end
 		imgui.PopStyleColor(3)
 		imgui.SameLine((sizeX - 17) / 2 + 10)
 		--
-		if imgui.Button(u8'РџРѕРёСЃРє', imgui.ImVec2((sizeX - 42) / 2 , 25)) then
-			imgui.OpenPopup(u8'РџРѕРёСЃРє | Support-Helper '..thisScript().version)
+		if imgui.Button(u8'Поиск', imgui.ImVec2((sizeX - 42) / 2 , 25)) then
+			imgui.OpenPopup(u8'Поиск | Support-Helper '..thisScript().version)
 		end
 
-		if imgui.BeginPopupModal(u8'РџРѕРёСЃРє | Support-Helper '..thisScript().version, _, imgui.WindowFlags.NoMove + imgui.WindowFlags.NoResize + imgui.WindowFlags.NoCollapse) then
+		if imgui.BeginPopupModal(u8'Поиск | Support-Helper '..thisScript().version, _, imgui.WindowFlags.NoMove + imgui.WindowFlags.NoResize + imgui.WindowFlags.NoCollapse) then
 			local pSize = imgui.ImVec2(1000, 360)
 			imgui.SetWindowSizeVec2(pSize)
 	
 			imgui.SetCursorPos(imgui.ImVec2(20, 45))
-			imgui.Text(u8'РўРµРєСЃС‚:')
+			imgui.Text(u8'Текст:')
 			imgui.SameLine(70)
 			--
 			imgui.TextColoredRGB(askText)
 				
-			imgui.SetCursorPos(imgui.ImVec2(20, 70)) imgui.Text(u8'РџРѕРёСЃРє:')
+			imgui.SetCursorPos(imgui.ImVec2(20, 70)) imgui.Text(u8'Поиск:')
 			
 			imgui.SetCursorPos(imgui.ImVec2(70, 66))
 			imgui.PushItemWidth(pSize.x - 90)
@@ -186,7 +186,7 @@ local newFrame = imgui.OnFrame(
 			imgui.PopItemWidth()
 			
 			imgui.SetCursorPos(imgui.ImVec2(21, 108))
-			imgui.Text(u8'Р РµР·СѓР»СЊС‚Р°С‚С‹:')
+			imgui.Text(u8'Результаты:')
 	
 			imgui.SetCursorPos(imgui.ImVec2(20, 130))
 			imgui.BeginChild('ChildWindowsS', imgui.ImVec2(pSize.x/2 + 460, pSize.y/2 - 0), true)
@@ -195,7 +195,7 @@ local newFrame = imgui.OnFrame(
 			for i=1, #askList do
 				if string.len(str(searchInput)) ~= 0 then
 					if	string.find(u8(askList[i].ask), str(searchInput), 1, true) or
-						string.find(u8(askList[i].answer), str(searchInput), 1, true) then -- СЃРїРёСЃРѕРє РІРѕРїСЂРѕСЃРѕРІ
+						string.find(u8(askList[i].answer), str(searchInput), 1, true) then -- список вопросов
 						imgui.Columns(2)
 						if imgui.Selectable(u8'/H##'..tonumber(i), true, _, bbts) then
 							sampSendChat('/h >> '..askList[i].ask)
@@ -207,12 +207,12 @@ local newFrame = imgui.OnFrame(
 						end
 						imgui.SetColumnWidth(0, 60)
 						imgui.NextColumn()
-						if askList[i].type == 'self' then imgui.TextColoredRGB('{ffffff}Р’РѕРїСЂРѕСЃ {68e625}$ {ffffff}'..askList[i].ask) else imgui.TextColoredRGB('{ffffff}'..askList[i].player..' {fac146}: {ffffff}'..askList[i].ask) end
-						if askList[i].type == 'self' then imgui.TextColoredRGB('{ffffff}РћС‚РІРµС‚ {68e625}$ {ffffff}'..askList[i].answer) else imgui.TextColoredRGB('{ffffff}'..askList[i].helper..' {fac146}: {ffffff}'..askList[i].answer) end
+						if askList[i].type == 'self' then imgui.TextColoredRGB('{ffffff}Вопрос {68e625}$ {ffffff}'..askList[i].ask) else imgui.TextColoredRGB('{ffffff}'..askList[i].player..' {fac146}: {ffffff}'..askList[i].ask) end
+						if askList[i].type == 'self' then imgui.TextColoredRGB('{ffffff}Ответ {68e625}$ {ffffff}'..askList[i].answer) else imgui.TextColoredRGB('{ffffff}'..askList[i].helper..' {fac146}: {ffffff}'..askList[i].answer) end
 						imgui.NextColumn()
 						imgui.Separator()
 					end
-				else -- РµСЃР»Рё РІ РїРѕРёСЃРєРµ РЅРёС‡РµРіРѕ РЅРµС‚, РґР°Р¶Рµ РЅРёРєР°РєРѕРµ Р·РЅР°С‡РµРЅРёРµ
+				else -- если в поиске ничего нет, даже никакое значение
 					imgui.Columns(2)
 					if imgui.Selectable(u8'/H##'..tonumber(i), true, _, bbts) then
 						sampSendChat('/h >> '..askList[i].ask)
@@ -224,8 +224,8 @@ local newFrame = imgui.OnFrame(
 					end
 					imgui.SetColumnWidth(0, 60)
 					imgui.NextColumn()
-					if askList[i].type == 'self' then imgui.TextColoredRGB('{ffffff}Р’РѕРїСЂРѕСЃ {68e625}$ {ffffff}'..askList[i].ask) else imgui.TextColoredRGB('{ffffff}'..askList[i].player..' {fac146}: {ffffff}'..askList[i].ask) end
-					if askList[i].type == 'self' then imgui.TextColoredRGB('{ffffff}РћС‚РІРµС‚ {68e625}$ {ffffff}'..askList[i].answer) else imgui.TextColoredRGB('{ffffff}'..askList[i].helper..' {fac146}: {ffffff}'..askList[i].answer) end
+					if askList[i].type == 'self' then imgui.TextColoredRGB('{ffffff}Вопрос {68e625}$ {ffffff}'..askList[i].ask) else imgui.TextColoredRGB('{ffffff}'..askList[i].player..' {fac146}: {ffffff}'..askList[i].ask) end
+					if askList[i].type == 'self' then imgui.TextColoredRGB('{ffffff}Ответ {68e625}$ {ffffff}'..askList[i].answer) else imgui.TextColoredRGB('{ffffff}'..askList[i].helper..' {fac146}: {ffffff}'..askList[i].answer) end
 					imgui.NextColumn()
 					imgui.Separator()
 				end
@@ -234,7 +234,7 @@ local newFrame = imgui.OnFrame(
 			imgui.EndChild()
 
 			imgui.SetCursorPos(imgui.ImVec2(20, pSize.y - 40))
-			if imgui.Button(u8'Р—Р°РєСЂС‹С‚СЊ', imgui.ImVec2(pSize.x/2 + 460, 25)) then
+			if imgui.Button(u8'Закрыть', imgui.ImVec2(pSize.x/2 + 460, 25)) then
 				searchInput = new.char[256]('')
 				imgui.CloseCurrentPopup()
 			end
@@ -246,11 +246,11 @@ local newFrame = imgui.OnFrame(
 		imgui.PushStyleColor(imgui.Col.Button, imgui.ImVec4(0.2, 0.77, 0.33, 1.0))
 		imgui.PushStyleColor(imgui.Col.ButtonHovered, imgui.ImVec4(0.2, 0.77, 0.33, 0.9))
 		imgui.PushStyleColor(imgui.Col.ButtonActive, imgui.ImVec4(0.2, 0.77, 0.33, 0.8))
-		if imgui.Button(u8'РћС‚РІРµС‚РёС‚СЊ', imgui.ImVec2((sizeX - 42) / 2 , 25)) then
+		if imgui.Button(u8'Ответить', imgui.ImVec2((sizeX - 42) / 2 , 25)) then
 			local tempText = (u8:decode(str(askInput)))
 			
 			if (u8:decode(str(askInput))) == (nil or '') then
-				send('Р’ РѕС‚РІРµС‚Рµ РїСѓСЃС‚Рѕ, Р·Р°С‡РµРј РѕС‚РїСЂР°РІР»СЏС‚СЊ?', -1)
+				send('В ответе пусто, зачем отправлять?', -1)
 			else
 				sampSendDialogResponse(6921, 1, 0, (u8:decode(str(askInput))))
 				renderWindow[0] = false
@@ -265,30 +265,30 @@ local newFrame = imgui.OnFrame(
 		imgui.PushStyleColor(imgui.Col.ButtonActive, imgui.ImVec4(1.00, 0.25, 0.25, 0.8))
 		imgui.SameLine((sizeX - 17) / 2 + 10)
 		--
-		if imgui.Button(u8'РРіРЅРѕСЂРёС‚СЊ', imgui.ImVec2((sizeX - 42) / 2 , 25)) then
-			imgui.OpenPopup(u8'РРіРЅРѕСЂ | Support-Helper '..thisScript().version)
+		if imgui.Button(u8'Игнорить', imgui.ImVec2((sizeX - 42) / 2 , 25)) then
+			imgui.OpenPopup(u8'Игнор | Support-Helper '..thisScript().version)
 		end
 		imgui.PopStyleColor(3)
 
-		if imgui.BeginPopupModal(u8'РРіРЅРѕСЂ | Support-Helper '..thisScript().version, _, imgui.WindowFlags.NoMove + imgui.WindowFlags.NoResize + imgui.WindowFlags.NoCollapse) then
+		if imgui.BeginPopupModal(u8'Игнор | Support-Helper '..thisScript().version, _, imgui.WindowFlags.NoMove + imgui.WindowFlags.NoResize + imgui.WindowFlags.NoCollapse) then
 			local pSize = imgui.ImVec2(560, 160)
 			imgui.SetWindowSizeVec2(pSize)
 	
 			imgui.SetCursorPos(imgui.ImVec2(20, 45))
-			imgui.Text(u8'Р’РѕРїСЂРѕСЃ:')
+			imgui.Text(u8'Вопрос:')
 			imgui.SameLine(70)
 			--
 			imgui.TextColoredRGB(askText)
 				
 			imgui.SetCursorPos(imgui.ImVec2(20, 70))
-			imgui.Text(u8'Р’С‹ РЅРµ Р·РЅР°РµС‚Рµ РєР°Рє РѕС‚РІРµС‡Р°С‚СЊ Рё С…РѕС‚РёС‚Рµ СЌС‚Рѕ РїСЂРѕРёРіРЅРѕСЂРёС‚СЊ РІРѕРїСЂРѕСЃ?')
+			imgui.Text(u8'Вы не знаете как отвечать и хотите это проигнорить вопрос?')
 
 			imgui.SetCursorPos(imgui.ImVec2(20, pSize.y - 45))
 			local but = imgui.ImVec2((pSize.x/2) - 23, 25)
 			imgui.PushStyleColor(imgui.Col.Button, imgui.ImVec4(0.2, 0.77, 0.33, 1.0))
 			imgui.PushStyleColor(imgui.Col.ButtonHovered, imgui.ImVec4(0.2, 0.77, 0.33, 0.9))
 			imgui.PushStyleColor(imgui.Col.ButtonActive, imgui.ImVec4(0.2, 0.77, 0.33, 0.8))
-			if imgui.Button(u8'Р”Р°', but) then
+			if imgui.Button(u8'Да', but) then
 				renderWindow[0] = false
 				imgui.CloseCurrentPopup()
 				sampSendDialogResponse(6921, 0, 0, '')
@@ -300,7 +300,7 @@ local newFrame = imgui.OnFrame(
 			imgui.PushStyleColor(imgui.Col.Button, imgui.ImVec4(1.00, 0.25, 0.25, 1.0))
 			imgui.PushStyleColor(imgui.Col.ButtonHovered, imgui.ImVec4(1.00, 0.25, 0.25, 0.9))
 			imgui.PushStyleColor(imgui.Col.ButtonActive, imgui.ImVec4(1.00, 0.25, 0.25, 0.8))
-			if imgui.Button(u8'РќРµС‚', but) then
+			if imgui.Button(u8'Нет', but) then
 				imgui.CloseCurrentPopup()
 			end
 			imgui.PopStyleColor(3)
@@ -317,28 +317,28 @@ local menuFrame = imgui.OnFrame(
 		local sizeX, sizeY = 960, 400
 		imgui.SetNextWindowPos(imgui.ImVec2(resX / 2, resY / 2), imgui.Cond.FirstUseEver, imgui.ImVec2(0.5, 0.5))
 		imgui.SetNextWindowSize(imgui.ImVec2(sizeX, sizeY), imgui.Cond.FirstUseEver)
-		imgui.BeginCustomTitle(u8'РњРµРЅСЋ | Support-Helper '..tostring(thisScript().version), 30, menuWindow, imgui.WindowFlags.NoMove + imgui.WindowFlags.NoResize + imgui.WindowFlags.NoCollapse)
+		imgui.BeginCustomTitle(u8'Меню | Support-Helper '..tostring(thisScript().version), 30, menuWindow, imgui.WindowFlags.NoMove + imgui.WindowFlags.NoResize + imgui.WindowFlags.NoCollapse)
 		
 		local csbutt = imgui.ImVec2(sizeX - 647, 25)
-		if imgui.Button(u8'Р“Р»Р°РІРЅР°СЏ', csbutt) then tab[0] = 1 end
+		if imgui.Button(u8'Главная', csbutt) then tab[0] = 1 end
 		imgui.SameLine()
 		--
-		if imgui.Button(u8'Р“РѕС‚РѕРІС‹Рµ РІРѕРїСЂРѕСЃС‹', csbutt) then tab[0] = 2 end
+		if imgui.Button(u8'Готовые вопросы', csbutt) then tab[0] = 2 end
 		imgui.SameLine()
 		--
-		if imgui.Button(u8'Р›РѕРіРё', csbutt) then tab[0] = 3 end
+		if imgui.Button(u8'Логи', csbutt) then tab[0] = 3 end
 
 		local childSize = sizeX - 100
 		imgui.SetCursorPos(imgui.ImVec2(5, 65))
 		imgui.BeginChild('s', imgui.ImVec2(sizeX - 10, sizeY - 70), true)
-		if tab[0] == 1 then -- Р Р°Р·РґРµР» "Р“Р»Р°РІРЅР°СЏ"
+		if tab[0] == 1 then -- Раздел "Главная"
 			imgui.SetCursorPos(imgui.ImVec2(5, 8))
 
-			imgui.Text(u8'РЎРєРѕСЂРѕ...')
+			imgui.Text(u8'Скоро...')
 			
-		elseif tab[0] == 2 then -- Р Р°Р·РґРµР» "Р“РѕС‚РѕРІС‹Рµ РІРѕРїСЂРѕСЃС‹"
+		elseif tab[0] == 2 then -- Раздел "Готовые вопросы"
 			imgui.SetCursorPos(imgui.ImVec2(5, 8))
-			imgui.Text(u8'РџРѕРёСЃРє: ')
+			imgui.Text(u8'Поиск: ')
 
 			imgui.SetCursorPos(imgui.ImVec2(50, 5))
 			imgui.PushItemWidth(sizeX - 370)
@@ -351,60 +351,60 @@ local menuFrame = imgui.OnFrame(
 			for i=1, #askList do
 				if askList[i].type == 'self' then
 					if string.len(str(searchSelf)) ~= 0 then
-						if	string.find(u8(askList[i].ask), str(searchSelf), 1, true) or string.find(u8(askList[i].answer), str(searchSelf), 1, true) then -- СЃРїРёСЃРѕРє РїРѕ ask Рё answer РїРѕ type `self`
+						if	string.find(u8(askList[i].ask), str(searchSelf), 1, true) or string.find(u8(askList[i].answer), str(searchSelf), 1, true) then -- список по ask и answer по type `self`
 							imgui.Columns(2)
 							if imgui.Selectable(u8'EDIT##'..tonumber(i), true, _, sbutt) then
-								imgui.OpenPopup(u8'Р РµРґР°РєС‚РёСЂРѕРІР°РЅРёРµ РіРѕС‚РѕРІРѕРіРѕ РІРѕРїСЂРѕСЃР° | Support-Helper '..thisScript().version)
+								imgui.OpenPopup(u8'Редактирование готового вопроса | Support-Helper '..thisScript().version)
 								idNew = i
 								newAskInput = new.char[256](u8(askList[i].ask))
 								newAnswerInput = new.char[256](u8(askList[i].answer))
 							end
 							if imgui.Selectable(u8'DELETE##'..tonumber(i), true, _, sbutt) then
-								imgui.OpenPopup(u8'РЈРґР°Р»РµРЅРёРµ РіРѕС‚РѕРІРѕРіРѕ РІРѕРїСЂРѕСЃР° | Support-Helper '..thisScript().version)
+								imgui.OpenPopup(u8'Удаление готового вопроса | Support-Helper '..thisScript().version)
 								idDel = i
 								delAsk = askList[i].ask
 								delAnswer = askList[i].answer
 							end
 							imgui.SetColumnWidth(0, 60)
 							imgui.NextColumn()
-							imgui.TextColoredRGB('{ffffff}Р’РѕРїСЂРѕСЃ {68e625}$ {ffffff}'..askList[i].ask)
-							imgui.TextColoredRGB('{ffffff}РћС‚РІРµС‚ {68e625}$ {ffffff}'..askList[i].answer)
+							imgui.TextColoredRGB('{ffffff}Вопрос {68e625}$ {ffffff}'..askList[i].ask)
+							imgui.TextColoredRGB('{ffffff}Ответ {68e625}$ {ffffff}'..askList[i].answer)
 							imgui.NextColumn()
 							imgui.Separator()
 						end
 					else
 						imgui.Columns(2)
 						if imgui.Selectable(u8'EDIT##'..tonumber(i), true, _, sbutt) then
-							imgui.OpenPopup(u8'Р РµРґР°РєС‚РёСЂРѕРІР°РЅРёРµ РіРѕС‚РѕРІРѕРіРѕ РІРѕРїСЂРѕСЃР° | Support-Helper '..thisScript().version)
+							imgui.OpenPopup(u8'Редактирование готового вопроса | Support-Helper '..thisScript().version)
 							idNew = i
 							newAskInput = new.char[256](u8(askList[i].ask))
 							newAnswerInput = new.char[256](u8(askList[i].answer))
 						end
 						if imgui.Selectable(u8'DELETE##'..tonumber(i), true, _, sbutt) then
-							imgui.OpenPopup(u8'РЈРґР°Р»РµРЅРёРµ РіРѕС‚РѕРІРѕРіРѕ РІРѕРїСЂРѕСЃР° | Support-Helper '..thisScript().version)
+							imgui.OpenPopup(u8'Удаление готового вопроса | Support-Helper '..thisScript().version)
 							idDel = i
 							delAsk = askList[i].ask
 							delAnswer = askList[i].answer
 						end
 						imgui.SetColumnWidth(0, 60)
 						imgui.NextColumn()
-						imgui.TextColoredRGB('{ffffff}Р’РѕРїСЂРѕСЃ {68e625}$ {ffffff}'..askList[i].ask)
-						imgui.TextColoredRGB('{ffffff}РћС‚РІРµС‚ {68e625}$ {ffffff}'..askList[i].answer)
+						imgui.TextColoredRGB('{ffffff}Вопрос {68e625}$ {ffffff}'..askList[i].ask)
+						imgui.TextColoredRGB('{ffffff}Ответ {68e625}$ {ffffff}'..askList[i].answer)
 						imgui.NextColumn()
 						imgui.Separator()
 					end
 				end
 			end
-			if imgui.BeginPopupModal(u8'Р РµРґР°РєС‚РёСЂРѕРІР°РЅРёРµ РіРѕС‚РѕРІРѕРіРѕ РІРѕРїСЂРѕСЃР° | Support-Helper '..thisScript().version, _, imgui.WindowFlags.NoMove + imgui.WindowFlags.NoResize + imgui.WindowFlags.NoCollapse) then
+			if imgui.BeginPopupModal(u8'Редактирование готового вопроса | Support-Helper '..thisScript().version, _, imgui.WindowFlags.NoMove + imgui.WindowFlags.NoResize + imgui.WindowFlags.NoCollapse) then
 				local sizeX, sizeY = 800, 155; local vecs = imgui.ImVec2(sizeX, sizeY); imgui.SetWindowSizeVec2(vecs)
 
-				imgui.SetCursorPos(imgui.ImVec2(20, 40)); imgui.Text(u8'Р’РѕРїСЂРѕСЃ $')
+				imgui.SetCursorPos(imgui.ImVec2(20, 40)); imgui.Text(u8'Вопрос $')
 				imgui.SetCursorPos(imgui.ImVec2(78, 37)); imgui.PushItemWidth(sizeX - 99); imgui.InputText(u8'##newAskInput', newAskInput, sizeof(newAskInput)); imgui.PopItemWidth()
-				imgui.SetCursorPos(imgui.ImVec2(24, 70)); imgui.Text(u8'РћС‚РІРµС‚  $')
+				imgui.SetCursorPos(imgui.ImVec2(24, 70)); imgui.Text(u8'Ответ  $')
 				imgui.SetCursorPos(imgui.ImVec2(78, 67)); imgui.PushItemWidth(sizeX - 99); imgui.InputText(u8'##newAnswerInput', newAnswerInput, sizeof(newAnswerInput)); imgui.PopItemWidth()
 	
 				imgui.SetCursorPos(imgui.ImVec2(20, sizeY - 45))
-				if imgui.Button(u8'Р РµРґР°РєС‚РёСЂРѕРІР°С‚СЊ', imgui.ImVec2(sizeX/2 - 23, 25)) then
+				if imgui.Button(u8'Редактировать', imgui.ImVec2(sizeX/2 - 23, 25)) then
 					askList[idNew].ask = u8:decode(str(newAskInput))
 					askList[idNew].answer = u8:decode(str(newAnswerInput))
 					askList[idNew].new_date = os.date('%Y.%m.%d %X')
@@ -416,30 +416,30 @@ local menuFrame = imgui.OnFrame(
 				end
 				imgui.SameLine()
 				--
-				if imgui.Button(u8'Р—Р°РєСЂС‹С‚СЊ', imgui.ImVec2(sizeX/2 - 23, 25)) then
+				if imgui.Button(u8'Закрыть', imgui.ImVec2(sizeX/2 - 23, 25)) then
 					imgui.CloseCurrentPopup()
 				end
 				imgui.EndPopup()
 			end
-			if imgui.BeginPopupModal(u8'РЈРґР°Р»РµРЅРёРµ РіРѕС‚РѕРІРѕРіРѕ РІРѕРїСЂРѕСЃР° | Support-Helper '..thisScript().version, _, imgui.WindowFlags.NoMove + imgui.WindowFlags.NoResize + imgui.WindowFlags.NoCollapse) then
+			if imgui.BeginPopupModal(u8'Удаление готового вопроса | Support-Helper '..thisScript().version, _, imgui.WindowFlags.NoMove + imgui.WindowFlags.NoResize + imgui.WindowFlags.NoCollapse) then
 				local pSize = imgui.ImVec2(900, 160)
 				imgui.SetWindowSizeVec2(pSize)
 		
 				imgui.SetCursorPos(imgui.ImVec2(20, 40))
-				imgui.TextColoredRGB('{ffffff}Р’РѕРїСЂРѕСЃ {68e625}$ {ffffff}'..delAsk)
+				imgui.TextColoredRGB('{ffffff}Вопрос {68e625}$ {ffffff}'..delAsk)
 
 				imgui.SetCursorPos(imgui.ImVec2(20, 55))
-				imgui.TextColoredRGB('{ffffff}РћС‚РІРµС‚ {68e625}$ {ffffff}'..delAnswer)
+				imgui.TextColoredRGB('{ffffff}Ответ {68e625}$ {ffffff}'..delAnswer)
 					
 				imgui.SetCursorPos(imgui.ImVec2(20, 80))
-				imgui.Text(u8'Р’С‹ С‚РѕС‡РЅРѕ С…РѕС‚РёС‚Рµ СЌС‚Рѕ СѓРґР°Р»РёС‚СЊ?')
+				imgui.Text(u8'Вы точно хотите это удалить?')
 	
 				imgui.SetCursorPos(imgui.ImVec2(20, pSize.y - 45))
 				local but = imgui.ImVec2((pSize.x/2) - 23, 25)
 				imgui.PushStyleColor(imgui.Col.Button, imgui.ImVec4(0.2, 0.77, 0.33, 1.0))
 				imgui.PushStyleColor(imgui.Col.ButtonHovered, imgui.ImVec4(0.2, 0.77, 0.33, 0.9))
 				imgui.PushStyleColor(imgui.Col.ButtonActive, imgui.ImVec4(0.2, 0.77, 0.33, 0.8))
-				if imgui.Button(u8'Р”Р°', but) then
+				if imgui.Button(u8'Да', but) then
 					table.remove(askList, idDel)
 					table.sort(askList, function(a,b) return a.old_date > b.old_date end)
 					json(askJson):write(askList)
@@ -451,7 +451,7 @@ local menuFrame = imgui.OnFrame(
 				imgui.PushStyleColor(imgui.Col.Button, imgui.ImVec4(1.00, 0.25, 0.25, 1.0))
 				imgui.PushStyleColor(imgui.Col.ButtonHovered, imgui.ImVec4(1.00, 0.25, 0.25, 0.9))
 				imgui.PushStyleColor(imgui.Col.ButtonActive, imgui.ImVec4(1.00, 0.25, 0.25, 0.8))
-				if imgui.Button(u8'РќРµС‚', but) then
+				if imgui.Button(u8'Нет', but) then
 					imgui.CloseCurrentPopup()
 				end
 				imgui.PopStyleColor(3)
@@ -462,21 +462,21 @@ local menuFrame = imgui.OnFrame(
 			imgui.SetCursorPos(imgui.ImVec2(sizeX/2 + 165, 5))
 			local smbutt = imgui.ImVec2(sizeX/3 - 20, 24)
 		
-			if imgui.Button(u8'РЎРѕР·РґР°С‚СЊ РіРѕС‚РѕРІС‹Рµ РІРѕРїСЂРѕСЃС‹', smbutt) then
-				imgui.OpenPopup(u8'РЎРѕР·РґР°РЅРёРµ РіРѕС‚РѕРІРѕРіРѕ РІРѕРїСЂРѕСЃР° | Support-Helper '..thisScript().version)
+			if imgui.Button(u8'Создать готовые вопросы', smbutt) then
+				imgui.OpenPopup(u8'Создание готового вопроса | Support-Helper '..thisScript().version)
 				newAskInput = new.char[256]('')
 				newAnswerInput = new.char[256]('')
 			end
-			if imgui.BeginPopupModal(u8'РЎРѕР·РґР°РЅРёРµ РіРѕС‚РѕРІРѕРіРѕ РІРѕРїСЂРѕСЃР° | Support-Helper '..thisScript().version, _, imgui.WindowFlags.NoMove + imgui.WindowFlags.NoResize + imgui.WindowFlags.NoCollapse) then
+			if imgui.BeginPopupModal(u8'Создание готового вопроса | Support-Helper '..thisScript().version, _, imgui.WindowFlags.NoMove + imgui.WindowFlags.NoResize + imgui.WindowFlags.NoCollapse) then
 				local sizeX, sizeY = 800, 155; local vecs = imgui.ImVec2(sizeX, sizeY); imgui.SetWindowSizeVec2(vecs)
 
-				imgui.SetCursorPos(imgui.ImVec2(20, 40)); imgui.Text(u8'Р’РѕРїСЂРѕСЃ $')
+				imgui.SetCursorPos(imgui.ImVec2(20, 40)); imgui.Text(u8'Вопрос $')
 				imgui.SetCursorPos(imgui.ImVec2(78, 37)); imgui.PushItemWidth(sizeX - 99); imgui.InputText(u8'##newAskInput', newAskInput, sizeof(newAskInput)); imgui.PopItemWidth()
-				imgui.SetCursorPos(imgui.ImVec2(24, 70)); imgui.Text(u8'РћС‚РІРµС‚  $')
+				imgui.SetCursorPos(imgui.ImVec2(24, 70)); imgui.Text(u8'Ответ  $')
 				imgui.SetCursorPos(imgui.ImVec2(78, 67)); imgui.PushItemWidth(sizeX - 99); imgui.InputText(u8'##newAnswerInput', newAnswerInput, sizeof(newAnswerInput)); imgui.PopItemWidth()
 	
 				imgui.SetCursorPos(imgui.ImVec2(20, sizeY - 45))
-				if imgui.Button(u8'РЎРѕР·РґР°С‚СЊ', imgui.ImVec2(sizeX/2 - 23, 25)) then
+				if imgui.Button(u8'Создать', imgui.ImVec2(sizeX/2 - 23, 25)) then
 					local list = {
 						old_date = os.date('%Y.%m.%d %X'),
 						new_date = 'null',
@@ -494,16 +494,16 @@ local menuFrame = imgui.OnFrame(
 				end
 				imgui.SameLine()
 				--
-				if imgui.Button(u8'Р—Р°РєСЂС‹С‚СЊ', imgui.ImVec2(sizeX/2 - 23, 25)) then
+				if imgui.Button(u8'Закрыть', imgui.ImVec2(sizeX/2 - 23, 25)) then
 					imgui.CloseCurrentPopup()
 				end
 
 				imgui.EndPopup()
 			end
 		
-		elseif tab[0] == 3 then -- Р Р°Р·РґРµР» "Р›РѕРіРё"
+		elseif tab[0] == 3 then -- Раздел "Логи"
 			imgui.SetCursorPos(imgui.ImVec2(5, 8))
-			imgui.Text(u8'РџРѕРёСЃРє:')
+			imgui.Text(u8'Поиск:')
 			
 			imgui.SetCursorPos(imgui.ImVec2(50, 5))
 			imgui.PushItemWidth(sizeX - 65)
@@ -525,26 +525,26 @@ local menuFrame = imgui.OnFrame(
 							string.find(u8(askList[i].player), str(searchLog), 1, true) or
 							string.find(u8(askList[i].helper), str(searchLog), 1, true) or
 							string.find(u8(askList[i].old_date), str(searchLog), 1, true) or
-							string.find(u8(askList[i].new_date), str(searchLog), 1, true) then -- СЃРїРёСЃРѕРє РІСЃРµС… С‚РёРїРѕРІ СЃ ask.json РєСЂРѕРјРµ type
+							string.find(u8(askList[i].new_date), str(searchLog), 1, true) then -- список всех типов с ask.json кроме type
 
 							imgui.Columns(2)
 							if imgui.Selectable(u8'COPY##'..tonumber(i), true, _, sbutt) then
-								local clipboard = ('['..askList[i].old_date..'] [Р’РѕРїСЂРѕСЃ] '..askList[i].player..': '..askList[i].ask..'\n['..askList[i].new_date..'] [РћС‚РІРµС‚] '..askList[i].helper..': '..askList[i].answer)
+								local clipboard = ('['..askList[i].old_date..'] [Вопрос] '..askList[i].player..': '..askList[i].ask..'\n['..askList[i].new_date..'] [Ответ] '..askList[i].helper..': '..askList[i].answer)
 								setClipboardText(clipboard)
-								send('РЎРєРѕРїРёСЂРѕРІР°РЅРѕ 2 СЃС‚СЂРѕРєР°, С‡С‚РѕР±С‹ РІСЃС‚Р°РІРёС‚СЊ РЅР°Р¶РјРёС‚Рµ CTRL + V')
+								send('Скопировано 2 строка, чтобы вставить нажмите CTRL + V')
 							end
 	
-							if imgui.Selectable(u8'/H [Р’РѕРї]##'..tonumber(i), true, _, sbutt) then
-								sampSendChat('/h << Р›РѕРіРё|Р’РѕРїСЂРѕСЃ >> '..askList[i].player..': '..askList[i].ask)
+							if imgui.Selectable(u8'/H [Воп]##'..tonumber(i), true, _, sbutt) then
+								sampSendChat('/h << Логи|Вопрос >> '..askList[i].player..': '..askList[i].ask)
 							end
 	
-							if imgui.Selectable(u8'/H [РћС‚РІ]##'..tonumber(i), true, _, sbutt) then
-								sampSendChat('/h << Р›РѕРіРё|РћС‚РІРµС‚ >> '..askList[i].helper..': '..askList[i].answer)
+							if imgui.Selectable(u8'/H [Отв]##'..tonumber(i), true, _, sbutt) then
+								sampSendChat('/h << Логи|Ответ >> '..askList[i].helper..': '..askList[i].answer)
 							end
 	
 							imgui.SetColumnWidth(0, 60)
 							imgui.NextColumn()
-							imgui.Text(u8('Р”Р°С‚Р°: '..askList[i].old_date..' - '..askList[i].new_date))
+							imgui.Text(u8('Дата: '..askList[i].old_date..' - '..askList[i].new_date))
 							
 							imgui.Text(u8(askList[i].player..': '..askList[i].ask))
 							imgui.Text(u8(askList[i].helper..': '..askList[i].answer))
@@ -554,22 +554,22 @@ local menuFrame = imgui.OnFrame(
 					else
 						imgui.Columns(2)
 						if imgui.Selectable(u8'COPY##'..tonumber(i), true, _, sbutt) then
-							local clipboard = ('['..askList[i].old_date..'] [Р’РѕРїСЂРѕСЃ] '..askList[i].player..': '..askList[i].ask..'\n['..askList[i].new_date..'] [РћС‚РІРµС‚] '..askList[i].helper..': '..askList[i].answer)
+							local clipboard = ('['..askList[i].old_date..'] [Вопрос] '..askList[i].player..': '..askList[i].ask..'\n['..askList[i].new_date..'] [Ответ] '..askList[i].helper..': '..askList[i].answer)
 							setClipboardText(clipboard)
-							send('РЎРєРѕРїРёСЂРѕРІР°РЅРѕ 2 СЃС‚СЂРѕРєР°, С‡С‚РѕР±С‹ РІСЃС‚Р°РІРёС‚СЊ РЅР°Р¶РјРёС‚Рµ CTRL + V')
+							send('Скопировано 2 строка, чтобы вставить нажмите CTRL + V')
 						end
 	
-						if imgui.Selectable(u8'/H [Р’РѕРї]##'..tonumber(i), true, _, sbutt) then
-							sampSendChat('/h << Р›РѕРіРё|Р’РѕРїСЂРѕСЃ >> '..askList[i].player..': '..askList[i].ask)
+						if imgui.Selectable(u8'/H [Воп]##'..tonumber(i), true, _, sbutt) then
+							sampSendChat('/h << Логи|Вопрос >> '..askList[i].player..': '..askList[i].ask)
 						end
 	
-						if imgui.Selectable(u8'/H [РћС‚РІ]##'..tonumber(i), true, _, sbutt) then
-							sampSendChat('/h << Р›РѕРіРё|РћС‚РІРµС‚ >> '..askList[i].helper..': '..askList[i].answer)
+						if imgui.Selectable(u8'/H [Отв]##'..tonumber(i), true, _, sbutt) then
+							sampSendChat('/h << Логи|Ответ >> '..askList[i].helper..': '..askList[i].answer)
 						end
 	
 						imgui.SetColumnWidth(0, 60)
 						imgui.NextColumn()
-						imgui.Text(u8('Р”Р°С‚Р°: '..askList[i].old_date..' - '..askList[i].new_date))
+						imgui.Text(u8('Дата: '..askList[i].old_date..' - '..askList[i].new_date))
 						
 						imgui.Text(u8(askList[i].player..': '..askList[i].ask))
 						imgui.Text(u8(askList[i].helper..': '..askList[i].answer))
@@ -592,10 +592,10 @@ function main()
 	askList = json(askJson):read()
 
 	if not doesFileExist(askJson) then json(askJson):write({}) end
-	json(tempJson):write({}) -- СѓРґР°Р»СЏРµРј РІСЂРµРјРµРЅРЅС‹Рµ РІРѕРїСЂРѕСЃС‹ РїРѕСЃР»Рµ Р·Р°РїСѓСЃРєР° СЃРєСЂРёРїС‚Р°
+	json(tempJson):write({}) -- удаляем временные вопросы после запуска скрипта
 	tempList = json(tempJson):read()
 
-	send('РЎРєСЂРёРїС‚ СѓСЃРїРµС€РЅРѕ Р·Р°РіСЂСѓР¶РµРЅРѕ. Р’РµСЂСЃРёСЏ: '..thisScript().version..'. РљРѕРјР°РЅРґР°: /sh_menu')
+	send('Скрипт успешно загружено. Версия: '..thisScript().version..'. Команда: /sh_menu')
 	print(); print('Script Support-Helper '..thisScript().version..' loaded - Discord: kyrtion#7310')
 
 	--! debug window (dont use)
@@ -610,10 +610,10 @@ function main()
 	sampRegisterChatCommand('sh_verify', function()
 		if lockVerify then
 			if renderWindow[0] and sampIsDialogActive() then				
-				send('Р—Р°РєСЂРѕР№С‚Рµ РґРёР°Р»РѕРі Рё СЃРЅРѕРІР° РІРІРѕРґРёС‚Рµ /sh_verify')
+				send('Закройте диалог и снова вводите /sh_verify')
 			else
 				checkVerify = true
-				send('РћР±РЅРѕРІР»СЏСЋ '..oldVersion ..' -> '..newVersion..' ...')
+				send('Обновляю '..oldVersion ..' -> '..newVersion..' ...')
 				lockVerify = false
 			end
 		end
@@ -623,13 +623,13 @@ function main()
 		if status == dlstatus.STATUS_ENDDOWNLOADDATA then
 			updateIni = inicfg.load(nil, update_path)
 			if updateIni.info.version == nil or updateIni == nil then
-				send('РќРµРІРѕР·РјРѕР¶РЅРѕ РїСЂРѕРІРµСЂРёС‚СЊ РЅР°Р»РёС‡РёРµ РѕР±РЅРѕРІР»РµРЅРёРµ. РќР°Р¶РјРёС‚Рµ CTRL + R С‡С‚РѕР±С‹ РїРµСЂРµР·Р°РіСЂСѓР·РёС‚СЊ')
+				send('Невозможно проверить наличие обновление. Нажмите CTRL + R чтобы перезагрузить')
 				sampAddChatMessage('wut', -1)
 			else
 				newVersion = tostring(updateIni.info.version):gsub('"', '')
 				oldVersion = tostring(thisScript().version)
 				if newVersion ~= oldVersion then
-					send('Р•СЃС‚СЊ РѕР±РЅРѕРІР»РµРЅРёРµ! Р’РµСЂСЃРёСЏ: '..newVersion..'. Р§С‚РѕР±С‹ РѕР±РЅРѕРІРёС‚СЊ РІРІРѕРґРёС‚Рµ /sh_verify', -1)
+					send('Есть обновление! Версия: '..newVersion..'. Чтобы обновить вводите /sh_verify', -1)
 					update_state = true
 					lockVerify = true
 				end
@@ -643,7 +643,7 @@ function main()
 		if update_state and checkVerify then
 			downloadUrlToFile(script_url, script_path, function(id, status)
 				if status == dlstatus.STATUS_ENDDOWNLOADDATA then
-					send('РЎРєСЂРёРїС‚ СѓСЃРїРµС€РЅРѕ РѕР±РЅРѕРІР»РµРЅ! РЎРµР№С‡Р°СЃ Р±СѓРґРµС‚ РїРµСЂРµР·Р°РіСЂСѓР¶РµРЅ', -1)
+					send('Скрипт успешно обновлен! Сейчас будет перезагружен', -1)
 					lockFailed = true
 					thisScript():reload()
 				end
@@ -662,10 +662,10 @@ function onWindowMessage(msg, wparam, lparam)
 end
 
 function sampev.onShowDialog(id, style, title, button1, button2, text)
-	if id == 6921 and style == 1 and title:find('%{6333FF%}Р Р°СЃСЃРјРѕС‚СЂРµРЅРёРµ РІРѕРїСЂРѕСЃР° РѕС‚') then
+	if id == 6921 and style == 1 and title:find('%{6333FF%}Рассмотрение вопроса от') then
 		msg = (text:gsub('%{......%}', '')):gsub('\n', '')
-		askDate = title:match('%{6333FF%}Р Р°СЃСЃРјРѕС‚СЂРµРЅРёРµ РІРѕРїСЂРѕСЃР° РѕС‚ (.*)')
-		askPlayer, askText = msg:match('Р’РѕРїСЂРѕСЃ РѕС‚ (.*)%: (.*)')
+		askDate = title:match('%{6333FF%}Рассмотрение вопроса от (.*)')
+		askPlayer, askText = msg:match('Вопрос от (.*)%: (.*)')
 		
 		for i=1, #askList do
 			if askList[i].ask == askText then
@@ -680,13 +680,13 @@ function sampev.onShowDialog(id, style, title, button1, button2, text)
 end
 
 function sampev.onServerMessage(color, text)
-	if color == (-1616928769 or -667156735) and (text == "РСЃРїРѕР»СЊР·СѓР№С‚Рµ: /ans [id РёРіСЂРѕРєР°] [С‚РµРєСЃС‚]") then send(text) return false end
+	if color == (-1616928769 or -667156735) and (text == "Используйте: /ans [id игрока] [текст]") then send(text) return false end
 
 	if color == -1616928769 and (
-		text == "РџРѕРґСЃРєР°Р·РєР°: Р§С‚РѕР±С‹ РѕС‚РєСЂС‹С‚СЊ РёРЅРІРµРЅС‚Р°СЂСЊ, РЅР°Р¶РјРёС‚Рµ 'Y'" or
-		text == "РџРѕРґСЃРєР°Р·РєР°: Р§С‚РѕР±С‹ РІР·Р°РёРјРѕРґРµР№СЃС‚РІРѕРІР°С‚СЊ СЃ Р±РѕС‚РѕРј/РёРіСЂРѕРєРѕРј, РЅР°Р¶РјРёС‚Рµ 'РїСЂ. РєРЅРѕРїРєР° РјС‹С€Рё' + 'H'" or
-		text == "РџРѕРґСЃРєР°Р·РєР°: Р§С‚РѕР±С‹ РѕС‚РєСЂС‹С‚СЊ Р±Р°РіР°Р¶РЅРёРє РјР°С€РёРЅС‹, РЅР°Р¶РјРёС‚Рµ 'РїСЂ. РєРЅРѕРїРєР° РјС‹С€Рё' + 'РџСЂС‹Р¶РѕРє'" or
-		text == "РџРѕРґСЃРєР°Р·РєР°: Р’С‹ РјРѕР¶РµС‚Рµ РѕС‚РєР»СЋС‡РёС‚СЊ РїРѕРјРѕС‰СЊ РІ /mm -> РЅР°СЃС‚СЂРѕР№РєРё"
+		text == "Подсказка: Чтобы открыть инвентарь, нажмите 'Y'" or
+		text == "Подсказка: Чтобы взаимодействовать с ботом/игроком, нажмите 'пр. кнопка мыши' + 'H'" or
+		text == "Подсказка: Чтобы открыть багажник машины, нажмите 'пр. кнопка мыши' + 'Прыжок'" or
+		text == "Подсказка: Вы можете отключить помощь в /mm -> настройки"
 	) then
 		return false
 	end
@@ -725,14 +725,14 @@ function sampev.onServerMessage(color, text)
 		return true
 	end
 
-	--! СЌС‚РѕС‚ РєРѕРґ С‚РѕР»СЊРєРѕ РІ СЃР°РјРѕРј РєРѕРЅС†Рµ С„СѓРЅРєС†РёРё
-	-- РҐРµР»РїРµСЂ РѕС‚РІРµС‚РёР» РЅР° РІРѕРїСЂРѕСЃС‹
-	if color == -1 and text:find('%{C26EFF%}РџРѕРјРѕС‰РЅРёРє (.*) РѕС‚РІРµС‚РёР» РёРіСЂРѕРєСѓ (.*)%: %{FFFFFF%}(.*)') then
+	--! этот код только в самом конце функции
+	-- Хелпер ответил на вопросы
+	if color == -1 and text:find('%{C26EFF%}Помощник (.*) ответил игроку (.*)%: %{FFFFFF%}(.*)') then
 		local msg = text:gsub('%{......%}', '')
-		local msgHelper, msgPlayer, msgAnswer = msg:match('РџРѕРјРѕС‰РЅРёРє (.*) РѕС‚РІРµС‚РёР» РёРіСЂРѕРєСѓ (.*)%: (.*)')
-		lua_thread.create(function() -- СЃРѕР·РґР°РµРј РїРѕС‚РѕРє РґР»СЏ С†РёРєР»Р°, Р±РµР· РЅРµРіРѕ Р±СѓРґРµС‚ РєСЂР°С€РЅСѓС‚СЊ/РІС‹Р»РµС‚Р°С‚СЊ/РѕС€РёР±РєРё РїРѕСЏРІР»СЏС‚СЊ
+		local msgHelper, msgPlayer, msgAnswer = msg:match('Помощник (.*) ответил игроку (.*)%: (.*)')
+		lua_thread.create(function() -- создаем поток для цикла, без него будет крашнуть/вылетать/ошибки появлять
 			for i=1, #tempList do
-				if msgPlayer == tempList[i].player then -- РµСЃР»Рё РІ temp.json СЃРѕРІРїР°РґР°РµС‚ РёРіСЂРѕРє СЃ РёРґ
+				if msgPlayer == tempList[i].player then -- если в temp.json совпадает игрок с ид
 					lockAnswerSession = true
 					fnew_date = os.date('%Y.%m.%d %X')
 					fplayer = msgPlayer:gsub('%[%d+%]', '')
@@ -740,7 +740,7 @@ function sampev.onServerMessage(color, text)
 					fold_date = tempList[i].old_date
 					fhelper = msgHelper:gsub('%[%d+%]', '')
 					fmsg, fchar = msgAnswer:match('(.+)(%p)$')
-					if fchar ~= nil then print('РЎРёРјРІРѕР» РїРµСЂРµРЅРѕСЃ СЃС‚СЂРѕРєР°: '..tostring(fchar)) else print('РЎРёРјРІРѕР» РїРµСЂРµРЅРѕСЃ СЃС‚СЂРѕРєР°: nil (f638)') end
+					if fchar ~= nil then print('Символ перенос строка: '..tostring(fchar)) else print('Символ перенос строка: nil (f638)') end
 
 					table.remove(tempList, i)
 					json(tempJson):write(tempList)
@@ -749,12 +749,12 @@ function sampev.onServerMessage(color, text)
 			end
 		end)
 		return true
-	elseif color == -1 and text:find('%{8914DC%}%[Р’РѕРїСЂРѕСЃ%] (.*)%: %{FFFFFF%}(.*)') then
+	elseif color == -1 and text:find('%{8914DC%}%[Вопрос%] (.*)%: %{FFFFFF%}(.*)') then
 		local msg = text:gsub('%{......%}', '')
 		nold_date = os.date('%Y.%m.%d %X')
-		nplayer, nask = msg:match('%[Р’РѕРїСЂРѕСЃ%] (.*)%: (.*)')
+		nplayer, nask = msg:match('%[Вопрос%] (.*)%: (.*)')
 		nask, nchar = nask:match('(.+)(%p)$')
-		if nchar ~= ('' or nil) then print('РЎРёРјРІРѕР» РїРµСЂРµРЅРѕСЃ СЃС‚СЂРѕРєР°: '..tostring(nchar)) end
+		if nchar ~= ('' or nil) then print('Символ перенос строка: '..tostring(nchar)) end
 		lockAskSession = true
 		return true
 	end
@@ -917,7 +917,7 @@ end
 function onScriptTerminate(s, q)
 	if s == thisScript() then
 		if not lockFailed then
-			send('Р§С‚Рѕ-С‚Рѕ РїРѕС€Р»Рѕ РЅРµ С‚Р°Рє СЃ СЃРєСЂРёРїС‚РѕРј... РћС‚РєР»СЋС‡Р°РµРј, С‡С‚РѕР±С‹ РїРµСЂРµР·Р°РіСЂСѓР·РёС‚СЊ РЅР°Р¶РјРё CTRL + R', -1)
+			send('Что-то пошло не так с скриптом... Отключаем, чтобы перезагрузить нажми CTRL + R', -1)
 		end
 		return true
 	end
